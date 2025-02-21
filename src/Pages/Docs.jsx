@@ -1,8 +1,11 @@
 import React from 'react'
+import Sidebar from '../Components/Sidebar';
 
 function Docs() {
   return (
-    <div>Docs</div>
+    <div className=''>
+      <Sidebar />
+    </div>
   )
 }
 
