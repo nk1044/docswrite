@@ -3,9 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const text = `# Welcome to GitHub-Style Markdown Editor
   
@@ -43,14 +41,18 @@ console.log("Hello, World!");
 ### Images:
 ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)`;
 
-const MarkdownEditor = () => {
-  const [edit, setEdit] = useState(true);
-  const [markdown, setMarkdown] = useState(`# Markdown Editor`);
+const MarkdownEditor = ({
+  markdownText = `# Markdown Text Editor
+---`,
+  title = "Markdown Editor",
+}) => {
+  const [edit, setEdit] = useState(false);
+  const [markdown, setMarkdown] = useState(markdownText);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-neutral-950 text-neutral-300 font-sans">
+    <div className="grid grid-cols-1 h-full bg-neutral-950 text-neutral-300 font-sans">
       {/* Top Bar */}
-      <div className="absolute top-0 left-0 w-full h-12 bg-neutral-900 flex items-center px-4 text-white z-10">
+      <div className="w-full h-12 bg-neutral-900 flex items-center px-4 text-white z-10">
         <div className="flex items-center border border-neutral-700 rounded-md p-1 space-x-1">
           <button
             onClick={() => setEdit(true)}
@@ -72,7 +74,7 @@ const MarkdownEditor = () => {
           </button>
         </div>
 
-        <h1 className="text-xl font-medium w-full text-end">Markdown Editor</h1>
+        <h1 className="text-xl font-medium w-full text-end">{title}</h1>
       </div>
 
       {/* Main Content */}

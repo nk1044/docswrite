@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Preview from './Preview';
 
 const DefaultTree = [
-  { name: 'Item 1', Component: <div>hello</div>, children: [] },
+  { name: 'Item 1', Component: Preview, children: [] },
   { name: 'Item 2', Component: <div>hello</div>, children: [] },
   { name: 'Item 3', Component: <div>hello</div>, children: [] }
 ];
@@ -95,6 +96,14 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
                     )}
                   </li>
                 ))}
+                <div
+                      className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
+                      onClick={() => console.log('Add a new Doc')}
+                    >
+                      <span className="font-medium group-hover:text-neutral-100 transition-colors">
+                        ✚ Add a new Doc
+                      </span>
+                    </div>
               </ul>
             </nav>
           </aside>

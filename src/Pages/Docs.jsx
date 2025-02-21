@@ -5,8 +5,8 @@ import MarkdownEditor from '../Components/MarkdownEditor';
 function Docs() {
   return (
     <div className="w-full h-screen">
-      {/* <Sidebar /> */}
-      <MarkdownEditor />
+      <Sidebar />
+      {/* <MarkdownEditor /> */}
     </div>
   )
 }
