@@ -8,36 +8,47 @@ function Docs() {
 
   const GetTree = async () => {
       try {
-        const result = await databases.getDocument(
-          String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-          String(import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID),
-          String(import.meta.env.VITE_TREE_ID),
+        const result = await databases.listDocuments(
+          import.meta.env.VITE_APWRITE_DATABASE_ID,
+          import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID
         );
-        console.log(result?.Tree);
-        return result?.Tree;
+        console.log("Results from Appwrite: ", result?.documents);
+  
+        if (!result?.documents) return [];
+  
+        // Corrected way of constructing ResultTree
+        const ResultTree = result.documents.map((item) => ({
+          id: item?.MarkDownId,
+          name: item?.MarkdownTitle,
+        }));
+  
+        console.log("Result Tree: ", ResultTree);
+        return ResultTree;
       } catch (error) {
-        console.error('failed to get note: ', error);
+        console.error('Failed to get note: ', error);
+        return [];
       }
     };
 
-  useEffect(() => {
+    useEffect(() => {
       const Tree = localStorage.getItem('markdownTree');
       if (Tree) {
-        console.log('Tree found in local storage');
-        setTree(Tree || []);
+        // console.log('Tree found in local storage');
+        setTree(JSON.parse(Tree) || []);
       } else {
         GetTree().then((result) => {
           if (result) {
-            // store the array in local storage
+            // Store the array correctly in local storage
             localStorage.setItem('markdownTree', JSON.stringify(result));
             console.log('Tree stored in local storage');
             setTree(result || []);
           }
         }).catch((error) => {
-          console.error('failed to get tree: ', error);
+          console.error('Failed to get tree: ', error);
         });
       }
     }, []);
+    
 
 
   return (

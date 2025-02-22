@@ -1,33 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import Preview from './Preview';
+import { ID } from 'appwrite';
+import { databases } from '../Appwrite/AppwriteAuth.js';
 
-const DefaultTree = [
-  { name: 'Item 1', Component: (props) => <Preview {...props} />, children: [] }
-];
+const DefaultTree = [{ id: '1', name: 'Item 1' }];
 
-const Sidebar01 = ({ tree=DefaultTree }) => {
-  const [openMenus, setOpenMenus] = useState({});
-  const [SelectedComponent, setSelectedComponent] = useState(null);// get from local
+const CreateMarkdown = async () => {
+  const NoteID = ID.unique();
+  console.log('Note ID:', NoteID);
+  try {
+    const result = await databases.createDocument(
+      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+      String(import.meta.env.VITE_APWRITE_COLLECTION_ID),
+      NoteID,
+      {
+        title: 'Title',
+        markdownContent: `# Markdown Text Editor
+---`
+      }
+    );
+    // const Array_ID = ID.unique();
+    // console.log('New note created: ', result);
+    // const AddNoteId = await databases.createDocument(
+    //   String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+    //   String(import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID),
+    //   Array_ID,
+    //   {
+    //     MarkDownId: result.$id,
+    //     MarkdownTitle: result.title
+    //   }
+    // );
+    // console.log('New note ID created: ', AddNoteId);
+    return result;
+  } catch (error) {
+    console.error('Failed to create new note: ', error);
+  }
+
+};
+
+const Sidebar01 = ({ tree = DefaultTree }) => {
+  // console.log('Tree:', tree, "Is array:", Array.isArray(tree));
+  const validTree = Array.isArray(tree) ? tree : Object.values(tree || {});
+  // console.log("Tree:", validTree, "Is array:", Array.isArray(validTree));
+  const [SelectedComponent, setSelectedComponent] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log('tree:', tree.length);
-
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const toggleMenu = (index) => {
-    setOpenMenus((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-neutral-950 text-neutral-100">
@@ -55,54 +78,30 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
             </div>
             <nav>
               <ul className="space-y-2">
-                {tree?.map((item, index) => (
-                  <li key={index}>
-                    <div
-                      className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
-                      onClick={() => setSelectedComponent(() => item.Component)}
-                    >
-                      <span className="font-medium group-hover:text-neutral-100 transition-colors">
-                        {item.name}
-                      </span>
-                      {item.children.length > 0 && (
-                        <button
-                          className="p-1 hover:bg-neutral-700 rounded transition-colors"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleMenu(index);
-                          }}
-                        >
-                          ▼
-                        </button>
-                      )}
-                    </div>
-                    {openMenus[index] && item.children.length > 0 && (
-                      <ul className="mt-2 ml-4 pl-4 border-l border-neutral-700 space-y-2">
-                        {item.children.map((child, childIndex) => (
-                          <li key={childIndex}>
-                            <button
-                              onClick={() => {
-                                setSelectedComponent(() => item.Component);
-                                if (child.id) scrollToSection(child.id);
-                              }}
-                              className="w-full text-left text-neutral-400 hover:text-neutral-100 p-2 rounded-md text-sm transition-colors hover:bg-neutral-800"
-                            >
-                              {child.name}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-                <div
-                      className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
-                      onClick={() => console.log('Add a new Doc')}
-                    >
-                      <span className="font-medium group-hover:text-neutral-100 transition-colors">
-                        ✚ Add a new Doc
-                      </span>
-                    </div>
+              <li>
+                  <div
+                    className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
+                    onClick={CreateMarkdown}
+                  >
+                    <span className="font-medium group-hover:text-neutral-100 transition-colors">
+                      ✚ Add a new Doc
+                    </span>
+                  </div>
+                </li>
+                {tree?.length > 0 &&
+                  tree.map((item, index) => (
+                    <li key={index}>
+                      <div
+                        className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
+                        onClick={() => setSelectedComponent(<Preview id={item.id} />)}
+                      >
+                        <span className="font-medium group-hover:text-neutral-100 transition-colors">
+                          {item.name}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                
               </ul>
             </nav>
           </aside>
@@ -113,19 +112,20 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
       {menuOpen && isMobile && (
         <div className="fixed inset-0 bg-neutral-900/95 backdrop-blur-sm mt-10 z-40 p-6">
           <nav className="space-y-4">
-            {tree.map((item, index) => (
-              <div key={index} className="border-b border-neutral-700 pb-4">
-                <button
-                  className="w-full text-left text-neutral-100 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
-                  onClick={() => {
-                    setSelectedComponent(() => item.Component);
-                    setMenuOpen(false);
-                  }}
-                >
-                  {item.name}
-                </button>
-              </div>
-            ))}
+            {tree?.length > 0 &&
+              tree.map((item, index) => (
+                <div key={index} className="border-b border-neutral-700 pb-4">
+                  <button
+                    className="w-full text-left text-neutral-100 p-3 rounded-lg hover:bg-neutral-800 transition-colors"
+                    onClick={() => {
+                      setSelectedComponent(<Preview id={item.id} />);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                </div>
+              ))}
           </nav>
         </div>
       )}
@@ -135,7 +135,7 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
         <div className="w-full">
           {SelectedComponent ? (
             <div className="w-full h-full mt-5 shadow-lg p-2 rounded-2xl overflow-auto bg-neutral-900 text-neutral-100">
-              <SelectedComponent />
+              {SelectedComponent}
             </div>
           ) : (
             <div className="bg-neutral-800 mt-3 mr-3 rounded-xl shadow-lg p-10 text-center">

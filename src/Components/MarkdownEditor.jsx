@@ -30,6 +30,7 @@ const UpdateNote = async ({
 }
 
 const DeleteNote = async ({id}) => {
+  alert('Are you sure you want to delete this note?');
   try {
     const result = await databases.deleteDocument(
       String(import.meta.env.VITE_APWRITE_DATABASE_ID),
@@ -38,19 +39,6 @@ const DeleteNote = async ({id}) => {
     );
   } catch (error) {
     console.error('failed to delete note: ', error);
-  }
-}
-
-const GetNote = async ({id}) => {
-  try {
-    const result = await databases.getDocument(
-      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
-      id,
-    );
-    return result;
-  } catch (error) {
-    console.error('failed to get note: ', error);
   }
 }
 
@@ -80,19 +68,6 @@ const MarkdownEditor = ({
     navigate('/');
   }
 
-  // useEffect(() => {
-  //   const result = localStorage.getItem(`markdown${id}`);
-  //   if(result){
-  //     setMarkdown(result?.markdownContent);
-  //     setTitle(result?.title);
-  //   }
-  //   else{
-  //     GetNote({id}).then((result) => {
-  //       setMarkdown(result?.markdownContent);
-  //       setTitle(result?.title);
-  //     });
-  //   }
-  // },[]);
 
   return (
     <div className="grid grid-cols-1 h-full border p-3 border-neutral-950 rounded-2xl bg-neutral-950 text-neutral-300 font-sans">

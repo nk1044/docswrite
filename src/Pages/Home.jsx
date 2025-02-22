@@ -1,37 +1,49 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { databases } from '../Appwrite/AppwriteAuth.js';
+import Preview from '../Components/Preview.jsx';
 
 function Home() {
   const navigate = useNavigate();
 
   const GetTree = async () => {
     try {
-      const result = await databases.getDocument(
-        String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-        String(import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID),
-        String(import.meta.env.VITE_TREE_ID),
+      const result = await databases.listDocuments(
+        import.meta.env.VITE_APWRITE_DATABASE_ID,
+        import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID
       );
-      console.log(result?.Tree[0]);
-      return result?.Tree;
+      // console.log("Results from Appwrite: ", result?.documents);
+
+      if (!result?.documents) return [];
+
+      // Corrected way of constructing ResultTree
+      const ResultTree = result.documents.map((item) => ({
+        id: item?.MarkDownId,
+        name: item?.MarkdownTitle,
+      }));
+
+      // console.log("Result Tree: ", ResultTree);
+      return ResultTree;
     } catch (error) {
-      console.error('failed to get note: ', error);
+      console.error('Failed to get note: ', error);
+      return [];
     }
   };
 
   useEffect(() => {
-      GetTree().then((result) => {
-        if (result) {
-          // store the array in local storage
+    GetTree()
+      .then((result) => {
+        if (result.length > 0) {
           localStorage.setItem('markdownTree', JSON.stringify(result));
-          console.log('Tree stored in local storage');
+          // console.log('Tree stored in local storage:', result);
+        } else {
+          console.log('Empty tree, not storing.');
         }
-      }).catch((error) => {
-        console.error('failed to get tree: ', error);
+      })
+      .catch((error) => {
+        console.error('Failed to get tree: ', error);
       });
-    }
-    , []);
-
+  }, []);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-neutral-950 text-neutral-300">
@@ -47,9 +59,11 @@ function Home() {
 
       {/* Call to Action */}
       <div className="mt-8">
-        <button className="bg-neutral-800 cursor-pointer text-neutral-200 px-6 py-3 rounded-full text-lg
+        <button
+          className="bg-neutral-800 cursor-pointer text-neutral-200 px-6 py-3 rounded-full text-lg
          font-semibold shadow-md hover:bg-neutral-700 active:scale-95 transition"
-          onClick={() => navigate('/docs')}>
+          onClick={() => navigate('/docs')}
+        >
           Read Docs
         </button>
       </div>
