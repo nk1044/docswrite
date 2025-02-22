@@ -9,9 +9,11 @@ const DefaultTree = [
 
 const Sidebar01 = ({ tree=DefaultTree }) => {
   const [openMenus, setOpenMenus] = useState({});
-  const [SelectedComponent, setSelectedComponent] = useState(null);
+  const [SelectedComponent, setSelectedComponent] = useState(null);// get from local
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
+
+
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
