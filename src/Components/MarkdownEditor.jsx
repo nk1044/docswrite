@@ -48,6 +48,7 @@ const MarkdownEditor = ({
 }) => {
   const [edit, setEdit] = useState(false);
   const [markdown, setMarkdown] = useState(markdownText);
+  const [Title, setTitle] = useState(title);
 
   return (
     <div className="grid grid-cols-1 h-full bg-neutral-950 text-neutral-300 font-sans">
@@ -74,7 +75,7 @@ const MarkdownEditor = ({
           </button>
         </div>
 
-        <h1 className="text-3xl font-medium w-full text-end">{title}</h1>
+        <h1 className="text-3xl font-medium w-full text-end">{Title}</h1>
       </div>
 
       {/* Main Content */}
