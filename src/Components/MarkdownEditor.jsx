@@ -53,7 +53,7 @@ const MarkdownEditor = ({
     <div className="grid grid-cols-1 h-full bg-neutral-950 text-neutral-300 font-sans">
       {/* Top Bar */}
       <div className="w-full h-12 bg-neutral-900 flex items-center px-4 text-white z-10">
-        <div className="flex items-center border border-neutral-700 rounded-md p-1 space-x-1">
+        <div className="flex items-center border border-neutral-700 rounded-xl p-1 space-x-1">
           <button
             onClick={() => setEdit(true)}
             className={`px-3 py-1 rounded-xl font-semibold cursor-pointer transition-colors duration-200 focus:outline-none ${edit
@@ -74,7 +74,7 @@ const MarkdownEditor = ({
           </button>
         </div>
 
-        <h1 className="text-xl font-medium w-full text-end">{title}</h1>
+        <h1 className="text-3xl font-medium w-full text-end">{title}</h1>
       </div>
 
       {/* Main Content */}

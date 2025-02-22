@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Preview from './Preview';
 
 const DefaultTree = [
-  { name: 'Item 1', Component: Preview, children: [] },
-  { name: 'Item 2', Component: <div>hello</div>, children: [] },
-  { name: 'Item 3', Component: <div>hello</div>, children: [] }
+  { name: 'Item 1', Component: (props) => <Preview {...props} />, children: [] },
+  { name: 'Item 2', Component: (props) => <Preview {...props} />, children: [] },
+  { name: 'Item 3', Component: (props) => <Preview {...props} />, children: [] }
 ];
 
 const Sidebar01 = ({ tree=DefaultTree }) => {
@@ -48,7 +48,7 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
           <aside className="fixed left-0 top-0 h-screen bg-neutral-900 text-neutral-100 p-6 w-1/5 min-w-[200px] max-w-[300px] overflow-y-auto">
             <div className="mb-8">
               <button
-                className="flex items-center text-neutral-300 hover:text-neutral-100 px-3 py-2 rounded-lg w-full text-left transition-colors bg-neutral-800 hover:bg-neutral-700"
+                className="flex items-center text-neutral-300 cursor-pointer hover:text-neutral-100 px-3 py-2 rounded-lg w-full text-left transition-colors bg-neutral-800 hover:bg-neutral-700"
                 onClick={() => (window.location.href = '/')}
               >
                 ⬅ Back
