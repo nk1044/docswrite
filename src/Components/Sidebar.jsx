@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Preview from './Preview';
 
 const DefaultTree = [
-  { name: 'Item 1', Component: (props) => <Preview {...props} />, children: [] },
-  { name: 'Item 2', Component: (props) => <Preview {...props} />, children: [] },
-  { name: 'Item 3', Component: (props) => <Preview {...props} />, children: [] }
+  { name: 'Item 1', Component: (props) => <Preview {...props} />, children: [] }
 ];
 
 const Sidebar01 = ({ tree=DefaultTree }) => {
@@ -12,8 +10,7 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
   const [SelectedComponent, setSelectedComponent] = useState(null);// get from local
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
-
-
+  console.log('tree:', tree.length);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -58,7 +55,7 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
             </div>
             <nav>
               <ul className="space-y-2">
-                {tree.map((item, index) => (
+                {tree?.map((item, index) => (
                   <li key={index}>
                     <div
                       className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"

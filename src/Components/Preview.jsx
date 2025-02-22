@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MarkdownEditor from './MarkdownEditor';
-import {databases} from '../Appwrite/AppwriteAuth.js';
+
 
 function Preview({id}) {
     // fetch the data based on the id
@@ -8,7 +8,7 @@ function Preview({id}) {
         title: 'Title 1',
         markdownContent: `# Markdown Text Editor
 ---`,
-})
+});
 
     const GetNote = async () => {
         try {

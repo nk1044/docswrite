@@ -1,10 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { databases } from '../Appwrite/AppwriteAuth.js';
 
 function Home() {
   const navigate = useNavigate();
 
-  
+  const GetTree = async () => {
+    try {
+      const result = await databases.getDocument(
+        String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+        String(import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID),
+        String(import.meta.env.VITE_TREE_ID),
+      );
+      console.log(result?.Tree[0]);
+      return result?.Tree;
+    } catch (error) {
+      console.error('failed to get note: ', error);
+    }
+  };
+
+  useEffect(() => {
+      GetTree().then((result) => {
+        if (result) {
+          // store the array in local storage
+          localStorage.setItem('markdownTree', JSON.stringify(result));
+          console.log('Tree stored in local storage');
+        }
+      }).catch((error) => {
+        console.error('failed to get tree: ', error);
+      });
+    }
+    , []);
 
 
   return (
