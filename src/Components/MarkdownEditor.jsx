@@ -1,48 +1,61 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { databases } from "../Appwrite/AppwriteAuth.js";
 
-const text = `# Welcome to GitHub-Style Markdown Editor
-  
-## Features
-- **Bold Text**
-- *Italic Text*
-- [Links](https://github.com)
-- \`Inline code\`
 
-\`\`\`javascript
-// Code block example
-console.log("Hello, World!");
-\`\`\`
+const UpdateNote = async ({
+  id,
+  markdown,
+  title,
+}) => {
+  try {
+    const result = await databases.updateDocument(
+      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
+      id,
+      {
+        title: title,
+        markdownContent: markdown,
+      },
+    );
+    // console.log(result);
+  } catch (error) {
+    console.error('failed to update note: ', error);
+  }
+}
 
-### Tables:
+const DeleteNote = async ({id}) => {
+  try {
+    const result = await databases.deleteDocument(
+      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
+      id,
+    );
+  } catch (error) {
+    console.error('failed to delete note: ', error);
+  }
+}
 
-| Name  | Age | Role |
-|-------|-----|------|
-| Alice | 25  | Developer |
-| Bob   | 30  | Designer |
-
-### Task Lists:
-- [x] Completed task
-- [ ] Pending task
-- [ ] Another pending task
-
-### Blockquotes:
-> This is a blockquote
-> With multiple lines
-
-### Horizontal Rule:
-
----
-
-### Images:
-![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)`;
-
+const GetNote = async ({id}) => {
+  try {
+    const result = await databases.getDocument(
+      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
+      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
+      id,
+    );
+    return result;
+  } catch (error) {
+    console.error('failed to get note: ', error);
+  }
+}
 
 const MarkdownEditor = ({
+  id=1,
   markdownText = `# Markdown Text Editor\n---`,
   title = "Markdown Editor",
 }) => {
@@ -51,6 +64,36 @@ const MarkdownEditor = ({
   const [Title, setTitle] = useState(title);
   const [saved, setSaved] = useState(true);
 
+  const navigate = useNavigate();
+
+  const handleUpdate = async () => {
+    await UpdateNote({
+      id: id,
+      markdown: markdown,
+      title: Title,
+    });
+    setSaved(true);
+  }
+
+  const handleDelete = async () => {
+    await DeleteNote({id});
+    navigate('/');
+  }
+
+  // useEffect(() => {
+  //   const result = localStorage.getItem(`markdown${id}`);
+  //   if(result){
+  //     setMarkdown(result?.markdownContent);
+  //     setTitle(result?.title);
+  //   }
+  //   else{
+  //     GetNote({id}).then((result) => {
+  //       setMarkdown(result?.markdownContent);
+  //       setTitle(result?.title);
+  //     });
+  //   }
+  // },[]);
+
   return (
     <div className="grid grid-cols-1 h-full border p-3 border-neutral-950 rounded-2xl bg-neutral-950 text-neutral-300 font-sans">
       {/* Top Bar */}
@@ -58,7 +101,7 @@ const MarkdownEditor = ({
         <div className="flex items-center border rounded-2xl border-neutral-700 p-1 space-x-1">
           <button
             onClick={() => setEdit(true)}
-            className={`px-3 py-1 rounded-xl font-semibold cursor-pointer transition-colors duration-200 focus:outline-none ${
+            className={`sm:px-3 sm:py-1 px-1 py-1 rounded-xl font-semibold cursor-pointer transition-colors duration-200 focus:outline-none ${
               edit
                 ? "bg-neutral-600 text-white border border-neutral-600"
                 : "bg-transparent text-neutral-300 border border-neutral-600 hover:bg-neutral-700"
@@ -68,7 +111,7 @@ const MarkdownEditor = ({
           </button>
           <button
             onClick={() => setEdit(false)}
-            className={`px-3 py-1 rounded-xl font-semibold cursor-pointer transition-colors duration-200 focus:outline-none ${
+            className={`sm:px-3 sm:py-1 px-1 py-1 rounded-xl font-semibold cursor-pointer transition-colors duration-200 focus:outline-none ${
               !edit
                 ? "bg-neutral-600 text-white border border-neutral-600"
                 : "bg-transparent text-neutral-300 border border-neutral-600 hover:bg-neutral-700"
@@ -78,13 +121,19 @@ const MarkdownEditor = ({
           </button>
         </div>
 
-        <h1 className="text-3xl font-medium w-full text-center">{Title}</h1>
+        <input
+          type="text"
+          value={Title}
+          disabled={!edit}
+          onChange={(e) => setTitle(e.target.value) || setSaved(false)}
+          className="w-full bg-transparent text-white font-semibold sm:text-3xl text-md text-center focus:outline-none"
+        />
 
         <div className="flex items-center space-x-1">
             <button
-            onClick={() => setEdit(false)}
+            onClick={handleUpdate}
             disabled={saved}
-            className={`px-3 py-1 rounded-xl text-green-300 font-semibold transition-colors 
+            className={`sm:px-3 sm:py-1 px-1 py-1 rounded-xl text-green-300 font-semibold transition-colors 
               duration-200 focus:outline-none hover:border-green-300 ${
               !saved
                 ? "bg-neutral-600 border cursor-pointer  border-neutral-600 "
@@ -94,8 +143,8 @@ const MarkdownEditor = ({
             Save
           </button>
             <button
-            onClick={() => setEdit(false)}
-            className={`px-3 py-1 rounded-xl text-red-300 font-semibold transition-colors 
+            onClick={handleDelete}
+            className={`sm:px-3 sm:py-1 px-1 py-1 rounded-xl text-red-300 font-semibold transition-colors 
               duration-200 focus:outline-none hover:border-red-300 bg-transparent border 
               cursor-pointer  border-neutral-600`}
           >
@@ -112,7 +161,7 @@ const MarkdownEditor = ({
               <textarea
                 className="w-full h-full p-4 bg-transparent focus:outline-none resize-none font-mono text-base leading-relaxed"
                 value={markdown}
-                onChange={(e) => setMarkdown(e.target.value)}
+                onChange={(e) => setMarkdown(e.target.value) || setSaved(false)}
                 placeholder="Write your markdown here..."
                 spellCheck="false"
               />
