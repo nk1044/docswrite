@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const navigate = useNavigate();
+
+  
+
+
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-neutral-950 text-neutral-300">
       {/* Hero Section */}
