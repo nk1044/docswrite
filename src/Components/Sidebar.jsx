@@ -134,10 +134,10 @@ const Sidebar01 = ({ tree=DefaultTree }) => {
       )}
 
       {/* Main Content */}
-      <div className={`transition-all duration-300 ${isMobile ? 'mt-16 w-full' : 'ml-[21%]'}`}>
+      <div className={`transition-all duration-300 ${isMobile ? 'mt-16 w-full' : 'ml-[21%] mr-4'}`}>
         <div className="w-full">
           {SelectedComponent ? (
-            <div className="w-full shadow-lg p-2 rounded-2xl overflow-auto bg-neutral-900 text-neutral-100">
+            <div className="w-full h-full mt-5 shadow-lg p-2 rounded-2xl overflow-auto bg-neutral-900 text-neutral-100">
               <SelectedComponent />
             </div>
           ) : (
