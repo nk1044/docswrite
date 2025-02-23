@@ -5,67 +5,50 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { databases } from "../Appwrite/AppwriteAuth.js";
+import { databases, UpdateNote, DeleteNote } from "../Appwrite/AppwriteAuth.js";
 
-
-const UpdateNote = async ({
-  id,
-  markdown,
-  title,
-}) => {
-  try {
-    const result = await databases.updateDocument(
-      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
-      id,
-      {
-        title: title,
-        markdownContent: markdown,
-      },
-    );
-    // console.log(result);
-  } catch (error) {
-    console.error('failed to update note: ', error);
-  }
-}
-
-const DeleteNote = async ({id}) => {
-  alert('Are you sure you want to delete this note?');
-  try {
-    const result = await databases.deleteDocument(
-      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-      String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
-      id,
-    );
-  } catch (error) {
-    console.error('failed to delete note: ', error);
-  }
-}
 
 const MarkdownEditor = ({
   id=1,
   markdownText = `# Markdown Text Editor\n---`,
   title = "Markdown Editor",
+  setTree,
+  setSelectedComponent,
 }) => {
   const [edit, setEdit] = useState(false);
   const [markdown, setMarkdown] = useState(markdownText);
   const [Title, setTitle] = useState(title);
   const [saved, setSaved] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleUpdate = async () => {
-    await UpdateNote({
+    setLoading(true);
+    const result = await UpdateNote({
       id: id,
       markdown: markdown,
       title: Title,
     });
     setSaved(true);
+    setTree(result || []);
+    setLoading(false);
   }
 
   const handleDelete = async () => {
-    await DeleteNote({id});
-    navigate('/');
+    setLoading(true);
+    const result = await DeleteNote({id});
+    setTree(result || []);
+    setSelectedComponent(null);
+    setLoading(false);
+  }
+
+  if(loading){
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-neutral-600"></div>
+      </div>
+      )
   }
 
 

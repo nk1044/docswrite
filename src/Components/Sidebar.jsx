@@ -1,50 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Preview from './Preview';
 import { ID } from 'appwrite';
-import { databases } from '../Appwrite/AppwriteAuth.js';
+import { databases, CreateMarkdown, GetTree } from '../Appwrite/AppwriteAuth.js';
 
 const DefaultTree = [{ id: '1', name: 'Item 1' }];
 
-const CreateMarkdown = async () => {
-  const NoteID = ID.unique();
-  console.log('Note ID:', NoteID);
-  try {
-    const result = await databases.createDocument(
-      String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-      String(import.meta.env.VITE_APWRITE_COLLECTION_ID),
-      NoteID,
-      {
-        title: 'Title',
-        markdownContent: `# Markdown Text Editor
----`
-      }
-    );
-    // const Array_ID = ID.unique();
-    // console.log('New note created: ', result);
-    // const AddNoteId = await databases.createDocument(
-    //   String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-    //   String(import.meta.env.VITE_APWRITE_IDS_COLLECTION_ID),
-    //   Array_ID,
-    //   {
-    //     MarkDownId: result.$id,
-    //     MarkdownTitle: result.title
-    //   }
-    // );
-    // console.log('New note ID created: ', AddNoteId);
-    return result;
-  } catch (error) {
-    console.error('Failed to create new note: ', error);
-  }
 
-};
-
-const Sidebar01 = ({ tree = DefaultTree }) => {
-  // console.log('Tree:', tree, "Is array:", Array.isArray(tree));
-  const validTree = Array.isArray(tree) ? tree : Object.values(tree || {});
-  // console.log("Tree:", validTree, "Is array:", Array.isArray(validTree));
+const Sidebar01 = ({ tree = DefaultTree , setTree}) => {
   const [SelectedComponent, setSelectedComponent] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const AddMarkdown = async ()=>{
+    setLoading(true);
+    const result = await CreateMarkdown();
+    const UpdatedTree = await GetTree();
+    setTree(UpdatedTree || []);
+    setLoading(false);
+  }
+
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
@@ -81,10 +57,10 @@ const Sidebar01 = ({ tree = DefaultTree }) => {
               <li>
                   <div
                     className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
-                    onClick={CreateMarkdown}
+                    onClick={AddMarkdown}
                   >
                     <span className="font-medium group-hover:text-neutral-100 transition-colors">
-                      ✚ Add a new Doc
+                      {loading ? 'adding...' : '✚ Add a new Doc'}
                     </span>
                   </div>
                 </li>
@@ -93,7 +69,7 @@ const Sidebar01 = ({ tree = DefaultTree }) => {
                     <li key={index}>
                       <div
                         className="group flex justify-between items-center bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg cursor-pointer transition-all"
-                        onClick={() => setSelectedComponent(<Preview id={item.id} />)}
+                        onClick={() => setSelectedComponent(<Preview id={item.id} setTree={setTree} setSelectedComponent={setSelectedComponent} />)}
                       >
                         <span className="font-medium group-hover:text-neutral-100 transition-colors">
                           {item.name}

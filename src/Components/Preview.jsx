@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import MarkdownEditor from './MarkdownEditor';
-import { databases } from '../Appwrite/AppwriteAuth';
+import { databases , GetNote} from '../Appwrite/AppwriteAuth';
 
-function Preview({ id }) {
+function Preview({ id, setTree, setSelectedComponent }) {
   const [markdown, setMarkdown] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const GetNote = async () => {
-    try {
-      const result = await databases.getDocument(
-        String(import.meta.env.VITE_APWRITE_DATABASE_ID),
-        String(import.meta.env.VITE_APWRITE_MARKDOWN_COLLECTION_ID),
-        id
-      );
-      setMarkdown({
-        title: result.title,
-        markdownContent: result.markdownContent,
-      });
-    } catch (error) {
-      console.error('failed to get note: ', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     setLoading(true);
-    GetNote();
+    GetNote(id).then((result) => {
+      setMarkdown(result);
+      setLoading(false);
+    });
   }, [id]);
 
   if (loading) {
@@ -51,6 +37,8 @@ function Preview({ id }) {
         id={id} 
         markdownText={markdown.markdownContent} 
         title={markdown.title} 
+        setTree={setTree}
+        setSelectedComponent={setSelectedComponent}
       />
     </div>
   );
