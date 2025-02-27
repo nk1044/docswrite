@@ -5,25 +5,20 @@ import {TextBlock} from '../Components/Sections/TextBlock';
 import {Para} from '../Components/Sections/Para';
 import {ListBlock} from '../Components/Sections/ListBlock';
 
-<div className='w-full'>
+function componentName() {
+  return (
+
+    <div className='w-full'>
 
 <div className='flex mb-3 items-center justify-center border-b border-neutral-700'>
-    <h1 className='text-4xl font-bold mb-2 text-neutral-300'>Getting Started with Docker</h1>
+    <h1 className='text-4xl font-bold mb-2 text-neutral-300'>Heading</h1>
 </div>
 
 <div className='mt-2 space-y-6'>
-// Blocks here
-</div>
-
-</div>
-
-
 <TextBlock
 heading = 'your heading',
 id='sub id',
-Children={<></>}
-/>
-
+Children={<>
 <Para
 text='this is normal text. and [code]this is inline code[/code]. 
 and this is [link]Link(https://docs.docker.com)[/link]'
@@ -48,5 +43,15 @@ title='your title',
 items={[]},
 ordered=false
 />
+</>}
+/>
+
+</div>
+
+</div>
+
+  )}
+export default componentName
+
 
 ```
