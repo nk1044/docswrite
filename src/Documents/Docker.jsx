@@ -1,16 +1,11 @@
 import React from 'react';
-import { CodeBlock } from '../Components/CodeBlock';
-import { Table } from '../Components/Tables';
-import {TextBlock} from '../Components/TextBlock';
-import {Para} from '../Components/Para';
-import {ListBlock} from '../Components/ListBlock';
+import { CodeBlock } from '../Components/Sections/CodeBlock';
+import { Table } from '../Components/Sections/Tables';
+import {TextBlock} from '../Components/Sections/TextBlock';
+import {Para} from '../Components/Sections/Para';
+import {ListBlock} from '../Components/Sections/ListBlock';
 
 function Docker() {
-    const dockerCommands = [
-        ["docker ps", "Lists running containers"],
-        ["docker images", "Lists available images"],
-        ["docker stop [container_id]", "Stops a running container"]
-    ];
 
     return (
         <div className='w-full'>
@@ -33,7 +28,13 @@ function Docker() {
                         />
                         <Table 
                             headers={["Command", "Description"]} 
-                            rows={dockerCommands} 
+                            rows={
+                                [
+                                    ["docker ps", "Lists running containers"],
+                                    ["docker images", "Lists available images"],
+                                    ["docker stop [container_id]", "Stops a running container"]
+                                ]
+                            } 
                         />
                         <ListBlock 
                             title="Docker Basic Commands"
