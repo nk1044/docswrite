@@ -17,7 +17,7 @@ function Kubernates() {
 
         <TextBlock
             heading='Introduction to Kubernetes'
-            id='intro'
+            id='kubernetes-intro'
             Children={
                 <Para text='Kubernetes (K8s) is an open-source platform for automating deployment, scaling, and managing containerized applications. It provides [code]container orchestration[/code], [code]scalability[/code], [code]load balancing[/code], [code]high availability[/code], and seamless [code]rollouts and rollbacks[/code].' />
             }
@@ -25,7 +25,7 @@ function Kubernates() {
 
         <TextBlock
             heading='Kubernetes Architecture'
-            id='architecture'
+            id='kubernetes-architecture'
             Children={
                 <>
                     <Para text='Kubernetes follows a master-worker architecture with the following components:' />
@@ -55,7 +55,7 @@ function Kubernates() {
 
         <TextBlock
             heading='Key Kubernetes Objects'
-            id='objects'
+            id='kubernetes-objects'
             Children={
                 <>
                     <Table
@@ -76,7 +76,7 @@ function Kubernates() {
 
         <TextBlock
             heading='Minikube: Setting Up a Local Kubernetes Cluster'
-            id='minikube'
+            id='kubernetes-minikube'
             Children={
                 <>
                     <Para text='Minikube allows running Kubernetes locally for testing and development. Below are the commands to set it up:' />
@@ -93,7 +93,7 @@ minikube dashboard`}
 
         <TextBlock
             heading='Basic kubectl Commands'
-            id='kubectl-commands'
+            id='kubernetes-kubectl-commands'
             Children={
                 <>
                     <Para text='[code]kubectl[/code] is the CLI tool to interact with Kubernetes. Below are common commands:' />
@@ -113,7 +113,7 @@ minikube dashboard`}
 
         <TextBlock
             heading='Scaling and Rolling Updates'
-            id='scaling-updates'
+            id='kubernetes-scaling-updates'
             Children={
                 <>
                     <Para text='To scale and update applications in Kubernetes, use the following commands:' />
@@ -129,7 +129,7 @@ kubectl rollout undo deployment my-app`}
 
         <TextBlock
             heading='Deploying Applications with YAML'
-            id='yaml-deployment'
+            id='kubernetes-yaml-deployment'
             Children={
                 <>
                     <Para text='Use YAML files to define deployments and services. Below is an example:' />

@@ -14,7 +14,7 @@ function PostgreSQL() {
       <div className='mt-2 space-y-6'>
         <TextBlock
           heading='Introduction'
-          id='intro'
+          id='postgres-intro'
           Children={
             <Para text='PostgreSQL is a powerful, open-source relational database. Docker allows us to run PostgreSQL in a containerized environment efficiently. This guide covers the installation, configuration, and useful commands to manage PostgreSQL with Docker.' />
           }
@@ -22,7 +22,7 @@ function PostgreSQL() {
 
         <TextBlock
           heading='Setting up PostgreSQL with Docker'
-          id='setup'
+          id='postgres-setup'
           Children={
             <>
               <Para text='To install PostgreSQL in a Docker container, create a `docker-compose.yml` file with the following content:' />
@@ -60,7 +60,7 @@ services:
 
         <TextBlock
           heading='Accessing PostgreSQL'
-          id='access'
+          id='postgres-access'
           Children={
             <>
               <Para text='Once the container is running, you can access PostgreSQL using the following connection URL:' />
@@ -73,7 +73,7 @@ services:
 
         <TextBlock
           heading='Important PostgreSQL Commands'
-          id='commands'
+          id='postgres-commands'
           Children={
             <>
               <ListBlock
@@ -93,7 +93,7 @@ services:
 
         <TextBlock
           heading='Stopping and Removing Containers'
-          id='stop_remove'
+          id='postgres-stop_remove'
           Children={
             <>
               <Para text='To stop and remove the running PostgreSQL container, use:' />

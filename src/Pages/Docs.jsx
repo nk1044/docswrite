@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Home from '../Components/Home';
 import Content from '../Components/Content';
 import Search from './Search.js';
+import SearchResults from '../Components/SearchResults.jsx';
 import Docker from '../Documents/Docker';
 import GitGitHub from '../Documents/GitGitHub.jsx';
 import Kubernates from '../Documents/Kubernates.jsx';
@@ -17,18 +18,28 @@ export default function Docs() {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const debounceTimer = useRef(null);
 
-  let debounceTimer;
   const handleSearch = (e) => {
     const value = e.target.value;
-    if (!value || value=='') return setQuery(value), setSearchResults([]);
     setQuery(value);
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(async () => {
-      const results = await Search(value);
+
+    if (!value.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+
+    debounceTimer.current = setTimeout(async () => {
+      const results = await Search(value); // Ensure Search function exists
       setSearchResults(results);
     }, 1000);
   };
+
+  useEffect(() => {
+    return () => clearTimeout(debounceTimer.current); // Cleanup timeout on unmount
+  }, []);
 
   const Items = [
     {name: 'Home', Component: <Home />, Children: []},
@@ -50,13 +61,13 @@ export default function Docs() {
       { name: 'Best Practices', id: 'git-best-practices' },
     ] },
     { name: 'Kubernates', Component: <Kubernates />, Children: [
-      { name: 'Intro', id: 'intro' },
-      { name: 'Architecture', id: 'architecture' },
-      {name: 'Objects', id: 'objects'},
-      {name: 'Minikube', id: 'minikube'},
-      {name: 'Kubectl Commands', id: 'kubectl-commands'},
-      {name: 'Scaling and Rolling Updates', id: 'scaling-updates'},
-      {name: 'Yaml Deployment', id: 'yaml-deployment'},
+      { name: 'Intro', id: 'kubernetes-intro' },
+      { name: 'Architecture', id: 'kubernetes-architecture' },
+      {name: 'Objects', id: 'kubernetes-objects'},
+      {name: 'Minikube', id: 'kubernetes-minikube'},
+      {name: 'Kubectl Commands', id: 'kubernetes-kubectl-commands'},
+      {name: 'Scaling and Rolling Updates', id: 'kubernetes-scaling-updates'},
+      {name: 'Yaml Deployment', id: 'kubernetes-yaml-deployment'},
     ] },
     {name: 'Redis', Component: <RedisDocs />, Children: [
       {name: 'Intro', id: 'redis-intro'},
@@ -68,21 +79,21 @@ export default function Docs() {
       {name: 'Additional', id: 'redis-resources'},
     ] },
     {name: 'PostgreSQL', Component: <PostgreSQL />, Children: [
-      {name: 'Intro', id: 'intro'},
-      {name: 'Installation', id: 'setup'},
-      {name: 'Accessing PostgreSQL', id: 'access'},
-      {name: 'Important Commands', id: 'commands'},
-      {name: 'Containers S/R', id: 'stop_remove'},
+      {name: 'Intro', id: 'postgres-intro'},
+      {name: 'Installation', id: 'postgres-setup'},
+      {name: 'Accessing PostgreSQL', id: 'postgres-access'},
+      {name: 'Important Commands', id: 'postgres-commands'},
+      {name: 'Containers S/R', id: 'postgres-stop_remove'},
     ] },
     {name: 'Django', Component: <DjangoSetup />, Children: [
       {name: 'Django Documentation', id: 'django-docs'},
-      {name: 'Installation & Virtual Environment', id: 'install-venv'},
-      {name: 'Creating Project', id: 'create-project'},
-      {name: 'Static Templates', id: 'static-templates'},
-      {name: 'Django App', id: 'create-app'},
+      {name: 'Installation & Virtual Environment', id: 'django-install-venv'},
+      {name: 'Creating Project', id: 'django-create-project'},
+      {name: 'Static Templates', id: 'django-static-templates'},
+      {name: 'Django App', id: 'django-create-app'},
       {name: 'Tailwind in Django', id: 'tailwind-django'},
-      {name: 'SuperUser', id: 'superuser-admin'},
-      {name: 'Models, Urls', id: 'models-urls'},
+      {name: 'SuperUser', id: 'django-superuser-admin'},
+      {name: 'Models, Urls', id: 'django-models-urls'},
     ]
     }
 
@@ -102,20 +113,33 @@ export default function Docs() {
       <div className="border border-neutral-700 rounded-lg mx-3 bg-neutral-800">
       <div className="flex items-center justify-between w-full py-2 px-6">
         {/* Title */}
-        <h1 className="text-2xl font-bold cursor-pointer text-white"
+        <h1 className="text-2xl hidden sm:block font-bold cursor-pointer text-white"
         onClick={() => navigate('/')}
         >Documentation</h1>
 
         {/* Search Bar */}
-        <input
+        <div className='flex items-center relative'>
+      <input
         type="search"
         name="Searchbar"
         id="Searchbar"
         value={query}
         onChange={handleSearch}
-        placeholder=" Search documentation..."
-        className="bg-neutral-800 text-white placeholder-gray-400 px-5 py-2 w-80 rounded-lg border border-neutral-600 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 transition-all shadow-md text-lg tracking-wide"
+        placeholder="Search documentation..."
+        className="bg-neutral-800 hidden sm:block text-white placeholder-gray-400 px-5 py-2 w-80 rounded-lg border border-neutral-600 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 transition-all shadow-md text-lg tracking-wide"
       />
+      {searchResults.length > 0 && (
+        <div className="absolute top-full left-0 mt-2 w-80 bg-white shadow-lg rounded">
+          <SearchResults 
+          searchResults={searchResults}
+          Items={Items}
+          setComponent={setComponent}
+          setComponentName={setComponentName}
+          setComponentIndex={setComponentIndex}
+          setSearchResults={setSearchResults}/>
+        </div>
+      )}
+    </div>
 
 
         {/* Settings Button */}

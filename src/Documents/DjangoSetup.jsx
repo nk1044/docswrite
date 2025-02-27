@@ -22,7 +22,7 @@ function DjangoSetup() {
 
         <TextBlock
           heading='Installation with Virtual Environment'
-          id='install-venv'
+          id='django-install-venv'
           Children={
             <>
               <Para text='To install Django inside a virtual environment, follow these steps:' />
@@ -40,7 +40,7 @@ uv venv' language='bash' />
 
         <TextBlock
           heading='Creating a Django Project'
-          id='create-project'
+          id='django-create-project'
           Children={
             <>
               <Para text='To create a new Django project, use the following command:' />
@@ -55,7 +55,7 @@ uv venv' language='bash' />
 
         <TextBlock
           heading='Setting Up Static and Template Files'
-          id='static-templates'
+          id='django-static-templates'
           Children={
             <>
               <Para text='Inside your project root, create `static/` and `templates/` directories.' />
@@ -72,7 +72,7 @@ uv venv' language='bash' />
 
         <TextBlock
           heading='Creating and Registering a Django App'
-          id='create-app'
+          id='django-create-app'
           Children={
             <>
               <Para text='To create a new Django app, use:' />
@@ -104,7 +104,7 @@ uv venv' language='bash' />
 
         <TextBlock
           heading='Creating a Superuser and Admin Panel Setup'
-          id='superuser-admin'
+          id='django-superuser-admin'
           Children={
             <>
               <Para text='Run migrations before creating a superuser:' />
@@ -119,7 +119,7 @@ uv venv' language='bash' />
 
         <TextBlock
           heading='Working with Models and URLs'
-          id='models-urls'
+          id='django-models-urls'
           Children={
             <>
               <Para text='Run migrations before defining models:' />
