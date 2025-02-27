@@ -43,20 +43,27 @@ function Content({ component, nextComponent, Items = [], Index }) {
         </div>
 
         <div className="md:col-span-2 hidden md:block">
-          <div className="border border-neutral-700 rounded-lg p-3">
-            <ul className="w-full">
-              {Items[Index]?.Children?.map((item, i) => (
-                <li key={i} className="w-full">
-                  <a
-                    className="px-3 mb-2 text-lg font-medium text-neutral-300 cursor-pointer transform hover:scale-105 transition-transform duration-200 w-full border-b border-gray-500"
-                    href={`#${item.id}`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div className="border border-neutral-700 rounded-lg p-3 bg-neutral-900 shadow-md">
+                {Index === 0 ? (
+                    <p className="text-neutral-400 text-center py-4">
+                        Select a section to see details here.
+                    </p>
+                ) : (
+                    <ul className="w-full space-y-2">
+                        {Items[Index]?.Children?.map((item, i) => (
+                            <li key={i} className="w-full">
+                                <a
+                                    className="block px-4 py-2 text-lg font-medium text-neutral-300 cursor-pointer 
+                                               transition-all duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
+                                    href={`#${item.id}`}
+                                >
+                                    {item.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
       </div>
     </div>

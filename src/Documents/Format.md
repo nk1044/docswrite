@@ -1,31 +1,34 @@
-<div className='w-full'>
-            {/* Title */}
-            <div className='flex mb-3 items-center justify-center border-b border-neutral-700'>
-                <h1 className='text-4xl font-bold text-neutral-300'>Getting Started with Docker</h1>
-            </div>
+```jsx
 
-            {/* Content */}
-            <div className='mt-2 space-y-6'>
 
-                {/* Section 1 */}
-                <div id='docker-1' className='border border-neutral-700 rounded-lg p-4'>
-                    <h1 className='text-3xl font-bold'>Heading 1</h1>
-                    <p className='text-lg text-neutral-500'>
-                        To list running containers, use the command <InlineCode text="docker ps" />.
-                    </p>
-                </div>
+<TextBlock
+heading = 'your heading',
+id='sub id',
+Children={<></>}
+/>
 
-                {/* Code Block Section */}
-                <CodeBlock 
-                    code={`# Pull the latest Ubuntu image\ndocker pull ubuntu\n# Run a container with an interactive shell\ndocker run -it ubuntu bash`} 
-                    language="bash"
-                />
+<Para
+text='this is normal text. and [code]this is inline code[/code]'
+/>
 
-                {/* Table Section */}
-                <Table 
-                    headers={["Command", "Description"]} 
-                    rows={dockerCommands} 
-                />
-                
-            </div>
-        </div>
+<CodeBlock
+code='your code',
+language='code language'
+/>
+
+<Table
+header={['', '']},
+rows={[
+['r11', 'r12'],
+['r21', 'r22']
+]}
+/>
+
+
+<ListBlock
+title='your title',
+items={[]},
+ordered=false
+/>
+
+```
