@@ -14,6 +14,7 @@ export default function Docs() {
   let debounceTimer;
   const handleSearch = (e) => {
     const value = e.target.value;
+    if (!value || value=='') return setQuery(value), setSearchResults([]);
     setQuery(value);
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
@@ -47,17 +48,18 @@ export default function Docs() {
 
         {/* Search Bar */}
         <input
-          type="search"
-          name="Searchbar"
-          id="Searchbar"
-          value={query}
-          onChange={handleSearch}
-          placeholder="🔍 Search in documentation..."
-          className="bg-neutral-700 text-white placeholder-neutral-400 px-4 py-2 w-72 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-        />
+        type="search"
+        name="Searchbar"
+        id="Searchbar"
+        value={query}
+        onChange={handleSearch}
+        placeholder=" Search documentation..."
+        className="bg-neutral-800 text-white placeholder-gray-400 px-5 py-2 w-80 rounded-lg border border-neutral-600 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 transition-all shadow-md text-lg tracking-wide"
+      />
+
 
         {/* Settings Button */}
-        <button className="px-4 py-2 bg-neutral-700 text-white rounded-lg hover:bg-neutral-600 transition">
+        <button className="px-4 py-2 bg-neutral-700 cursor-pointer text-white rounded-lg hover:bg-neutral-600 transition">
           Settings
         </button>
       </div>

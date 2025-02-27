@@ -7,14 +7,10 @@ const metaData = [
 
 export default async function Search(query) {
     const filtered = metaData.filter((doc) => {
-        if (typeof doc === "string") {
-            return doc.toLowerCase().includes(query.toLowerCase());
-        } else if (typeof doc === "object" && doc.title) { 
-            return doc.title.toLowerCase().includes(query.toLowerCase());
-        }
-        return [];
+        const data = String(doc.data).toLowerCase();
+        return data.includes(query.toLowerCase());
     });
-
+    
     console.log(filtered);
     return filtered;
 }
