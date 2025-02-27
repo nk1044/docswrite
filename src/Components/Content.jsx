@@ -2,9 +2,9 @@ import React from 'react';
 
 function Content({ component, nextComponent, Items = [], Index }) {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-auto">
       <div className="w-full h-full grid grid-cols-12 grid-rows-1 gap-1">
-        <div className="border border-neutral-700 rounded-lg p-3 md:col-span-10 col-span-12 overflow-auto">
+        <div className="border border-neutral-700 rounded-lg p-3 md:col-span-10 col-span-12 overflow-scroll">
           {component}
 
           <footer className="mt-8 border-t border-gray-500 pt-4">
@@ -47,12 +47,12 @@ function Content({ component, nextComponent, Items = [], Index }) {
             <ul className="w-full">
               {Items[Index]?.Children?.map((item, i) => (
                 <li key={i} className="w-full">
-                  <div
+                  <a
                     className="px-3 mb-2 text-lg font-medium text-neutral-300 cursor-pointer transform hover:scale-105 transition-transform duration-200 w-full border-b border-gray-500"
-                    onClick={() => console.log('clicked')}
+                    href={`#${item.id}`}
                   >
                     {item.name}
-                  </div>
+                  </a>
                 </li>
               ))}
             </ul>

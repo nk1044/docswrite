@@ -5,11 +5,14 @@ import Content from '../Components/Content';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
-  const [ComponentName, setComponentName] = useState('Button');
+  const [ComponentName, setComponentName] = useState('Home');
   const [ComponentIndex, setComponentIndex] = useState(0);
 
   const Items = [
-    { name: 'Docker', Component: <Docker />, Children: [] },
+    {name: 'Home', Component: <Home />, Children: []},
+    { name: 'Docker', Component: <Docker />, Children: [
+      {name: 'Heading 1', id: 'docker-1'},
+    ] },
   ];
 
   const handleNextComponent = (index) => {
@@ -28,7 +31,7 @@ export default function Docs() {
         </div>
       </div>
       <div className="w-full h-[calc(100%-5rem)] px-2">
-        <div className="w-full h-full grid grid-cols-12 p-3 gap-2">
+        <div className="w-full h-full grid grid-cols-12 grid-rows-1 p-3 gap-2">
           <div className="border border-neutral-700 rounded-lg p-4 hidden sm:block sm:col-span-3 md:col-span-2">
             {/* Sidebar */}
             <ul className="w-full">
@@ -50,7 +53,7 @@ export default function Docs() {
               ))}
             </ul>
           </div>
-          <div className="col-span-12 sm:col-span-9 md:col-span-10">
+          <div className="col-span-12 sm:col-span-9 row-span-1 md:col-span-10">
             <Content
               component={Component}
               nextComponent={handleNextComponent}
