@@ -1,4 +1,21 @@
 ```jsx
+import { CodeBlock } from '../Components/Sections/CodeBlock';
+import { Table } from '../Components/Sections/Tables';
+import {TextBlock} from '../Components/Sections/TextBlock';
+import {Para} from '../Components/Sections/Para';
+import {ListBlock} from '../Components/Sections/ListBlock';
+
+<div className='w-full'>
+
+<div className='flex mb-3 items-center justify-center border-b border-neutral-700'>
+    <h1 className='text-4xl font-bold mb-2 text-neutral-300'>Getting Started with Docker</h1>
+</div>
+
+<div className='mt-2 space-y-6'>
+// Blocks here
+</div>
+
+</div>
 
 
 <TextBlock

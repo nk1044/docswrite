@@ -47,19 +47,21 @@ function Content({ component, nextComponent, Items = [], Index }) {
                         Select a section to see details here.
                     </p>
                 ) : (
-                    <ul className="w-full space-y-2">
-                        {Items[Index]?.Children?.map((item, i) => (
-                            <li key={i} className="w-full">
-                                <a
-                                    className="block px-4 py-2 text-lg font-medium text-neutral-300 cursor-pointer 
-                                               transition-all duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-                                    href={`#${item.id}`}
-                                >
-                                    {item.name}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                  <ul className="w-full space-y-1"> 
+                  {Items[Index]?.Children?.map((item, i) => (
+                      <li key={i} className="w-full">
+                          <a
+                              className="block px-3 py-1.5 text-base font-medium text-neutral-300 cursor-pointer
+                                         transition-all duration-200 rounded-md hover:bg-neutral-800 hover:text-white 
+                                         active:bg-orange-500 active:text-white focus:bg-orange-500 focus:text-white"
+                              href={`#${item.id}`}
+                          >
+                              {item.name}
+                          </a>
+                      </li>
+                  ))}
+              </ul>
+              
                 )}
             </div>
         </div>

@@ -4,7 +4,7 @@ import { Table } from '../Components/Sections/Tables';
 import {TextBlock} from '../Components/Sections/TextBlock';
 import {Para} from '../Components/Sections/Para';
 import {ListBlock} from '../Components/Sections/ListBlock';
-import ExternalLink from '../Components/Sections/ExternalLink';
+
 
 function Docker() {
 

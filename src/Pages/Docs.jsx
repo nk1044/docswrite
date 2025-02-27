@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Docker from '../Documents/Docker';
 import Home from '../Components/Home';
 import Content from '../Components/Content';
 import Search from './Search.js';
+import Docker from '../Documents/Docker';
+import GitGitHub from '../Documents/GitGitHub.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -32,6 +33,14 @@ export default function Docs() {
       {name: 'Networking', id: 'docker-networking'},
       {name: 'Multiple', id: 'docker-multi-containers'},
       {name: 'Compose', id: 'docker-compose'},
+    ] },
+    { name: 'Git & GitHub', Component: <GitGitHub />, Children: [
+      { name: 'Git Basics', id: 'git-basics' },
+      { name: 'Git Branching and Merging', id: 'git-branching-merging' },
+      { name: 'GitHub Stash', id: 'git-stash' },
+      { name: 'Rebase & Reset', id: 'git-rebase-reset' },
+      { name: 'Repo Setup', id: 'github-setup' },
+      { name: 'Best Practices', id: 'git-best-practices' },
     ] },
   ];
 
