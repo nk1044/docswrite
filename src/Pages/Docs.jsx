@@ -4,6 +4,7 @@ import Content from '../Components/Content';
 import Search from './Search.js';
 import Docker from '../Documents/Docker';
 import GitGitHub from '../Documents/GitGitHub.jsx';
+import Kubernates from '../Documents/Kubernates.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -26,6 +27,7 @@ export default function Docs() {
 
   const Items = [
     {name: 'Home', Component: <Home />, Children: []},
+    
     { name: 'Docker', Component: <Docker />, Children: [
       {name: 'Image', id: 'docker-images'},
       {name: 'Container', id: 'docker-containers'},
@@ -42,6 +44,16 @@ export default function Docs() {
       { name: 'Repo Setup', id: 'github-setup' },
       { name: 'Best Practices', id: 'git-best-practices' },
     ] },
+    { name: 'Kubernates', Component: <Kubernates />, Children: [
+      { name: 'Intro', id: 'intro' },
+      { name: 'Architecture', id: 'architecture' },
+      {name: 'Objects', id: 'objects'},
+      {name: 'Minikube', id: 'minikube'},
+      {name: 'Kubectl Commands', id: 'kubectl-commands'},
+      {name: 'Scaling and Rolling Updates', id: 'scaling-updates'},
+      {name: 'Yaml Deployment', id: 'yaml-deployment'},
+    ] },
+
   ];
 
   const handleNextComponent = (index) => {
