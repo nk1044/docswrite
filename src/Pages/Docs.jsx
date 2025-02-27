@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Home from '../Components/Home';
 import Content from '../Components/Content';
 import Search from './Search.js';
 import Docker from '../Documents/Docker';
 import GitGitHub from '../Documents/GitGitHub.jsx';
 import Kubernates from '../Documents/Kubernates.jsx';
+import RedisDocs from '../Documents/RedisDocs.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -12,6 +14,7 @@ export default function Docs() {
   const [ComponentIndex, setComponentIndex] = useState(0);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   let debounceTimer;
   const handleSearch = (e) => {
@@ -27,7 +30,7 @@ export default function Docs() {
 
   const Items = [
     {name: 'Home', Component: <Home />, Children: []},
-    
+
     { name: 'Docker', Component: <Docker />, Children: [
       {name: 'Image', id: 'docker-images'},
       {name: 'Container', id: 'docker-containers'},
@@ -53,6 +56,15 @@ export default function Docs() {
       {name: 'Scaling and Rolling Updates', id: 'scaling-updates'},
       {name: 'Yaml Deployment', id: 'yaml-deployment'},
     ] },
+    {name: 'Redis', Component: <RedisDocs />, Children: [
+      {name: 'Intro', id: 'redis-intro'},
+      {name: 'Installation', id: 'redis-installation'},
+      {name: 'Basic Commands', id: 'redis-basic-commands'},
+      {name: 'Connecting', id: 'redis-connection'},
+      {name: 'Advanced redis', id: 'redis-advanced'},
+      {name: 'Best Practices', id: 'redis-best-practices'},
+      {name: 'Additional', id: 'redis-resources'},
+    ] },
 
   ];
 
@@ -70,7 +82,9 @@ export default function Docs() {
       <div className="border border-neutral-700 rounded-lg mx-3 bg-neutral-800">
       <div className="flex items-center justify-between w-full py-2 px-6">
         {/* Title */}
-        <h1 className="text-2xl font-bold text-white">Documentation</h1>
+        <h1 className="text-2xl font-bold cursor-pointer text-white"
+        onClick={() => navigate('/')}
+        >Documentation</h1>
 
         {/* Search Bar */}
         <input
