@@ -26,7 +26,12 @@ export default function Docs() {
   const Items = [
     {name: 'Home', Component: <Home />, Children: []},
     { name: 'Docker', Component: <Docker />, Children: [
-      {name: 'Heading 1', id: 'docker-1'},
+      {name: 'Image', id: 'docker-images'},
+      {name: 'Container', id: 'docker-containers'},
+      {name: 'Volume, E&P', id: 'docker-port-env-volume'},
+      {name: 'Networking', id: 'docker-networking'},
+      {name: 'Multiple', id: 'docker-multi-containers'},
+      {name: 'Compose', id: 'docker-compose'},
     ] },
   ];
 

@@ -8,7 +8,8 @@ Children={<></>}
 />
 
 <Para
-text='this is normal text. and [code]this is inline code[/code]'
+text='this is normal text. and [code]this is inline code[/code]. 
+and this is [link]Link(https://docs.docker.com)[/link]'
 />
 
 <CodeBlock
