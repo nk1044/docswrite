@@ -7,6 +7,7 @@ import Docker from '../Documents/Docker';
 import GitGitHub from '../Documents/GitGitHub.jsx';
 import Kubernates from '../Documents/Kubernates.jsx';
 import RedisDocs from '../Documents/RedisDocs.jsx';
+import PostgreSQL from '../Documents/PostgreSQL.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -64,6 +65,13 @@ export default function Docs() {
       {name: 'Advanced redis', id: 'redis-advanced'},
       {name: 'Best Practices', id: 'redis-best-practices'},
       {name: 'Additional', id: 'redis-resources'},
+    ] },
+    {name: 'PostgreSQL', Component: <PostgreSQL />, Children: [
+      {name: 'Intro', id: 'intro'},
+      {name: 'Installation', id: 'setup'},
+      {name: 'Accessing PostgreSQL', id: 'access'},
+      {name: 'Important Commands', id: 'commands'},
+      {name: 'Containers S/R', id: 'stop_remove'},
     ] },
 
   ];
