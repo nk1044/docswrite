@@ -8,6 +8,7 @@ import GitGitHub from '../Documents/GitGitHub.jsx';
 import Kubernates from '../Documents/Kubernates.jsx';
 import RedisDocs from '../Documents/RedisDocs.jsx';
 import PostgreSQL from '../Documents/PostgreSQL.jsx';
+import DjangoSetup from '../Documents/DjangoSetup.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -73,6 +74,17 @@ export default function Docs() {
       {name: 'Important Commands', id: 'commands'},
       {name: 'Containers S/R', id: 'stop_remove'},
     ] },
+    {name: 'Django', Component: <DjangoSetup />, Children: [
+      {name: 'Django Documentation', id: 'django-docs'},
+      {name: 'Installation & Virtual Environment', id: 'install-venv'},
+      {name: 'Creating Project', id: 'create-project'},
+      {name: 'Static Templates', id: 'static-templates'},
+      {name: 'Django App', id: 'create-app'},
+      {name: 'Tailwind in Django', id: 'tailwind-django'},
+      {name: 'SuperUser', id: 'superuser-admin'},
+      {name: 'Models, Urls', id: 'models-urls'},
+    ]
+    }
 
   ];
 
