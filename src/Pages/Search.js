@@ -51,9 +51,11 @@ const metaData = [
     {data: 'PostgreSQL Containers', Index: 5, ID: 'postgres-stop_remove'},
     {data: 'PostgreSQL Scaling', Index: 5, ID: 'postgres-stop_remove'},
     {data: 'PostgreSQL Rolling Updates', Index: 5, ID: 'postgres-stop_remove'},
-    {data: 'PostgreSQL Yaml Deployment', Index: 5, ID: 'postgres-stop_remove'},
 
-    {data: 'Django', Index: 6, ID: 'django-setup'},
+    {data: 'Django', Index: 6, ID: 'django-docs'},
+    {data: 'Django Documentation', Index: 6, ID: 'django-docs'},
+    {data: 'Django flow chart', Index: 6, ID: 'django-docs'},
+    {data: 'Django flowchart', Index: 6, ID: 'django-docs'},
     {data: 'Django Setup', Index: 6, ID: 'django-setup'},
     {data: 'Django Models', Index: 6, ID: 'django-models'},
     {data: 'Django Urls', Index: 6, ID: 'django-urls'},

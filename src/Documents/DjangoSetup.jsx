@@ -16,7 +16,11 @@ function DjangoSetup() {
           heading='Django Documentation'
           id='django-docs'
           Children={
+            <>
             <Para text='Refer to the official Django documentation for in-depth guidance: [link]Django Docs(https://docs.djangoproject.com)[/link]' />
+            <Para text='the django flow chart is given below:-' />
+            <img src="/DjangoFlowChart.png" loading='lazy' alt="Django flow chart" />
+            </>
           }
         />
 
