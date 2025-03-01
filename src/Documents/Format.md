@@ -6,6 +6,11 @@ import {Para} from '../Components/Sections/Para';
 import {ListBlock} from '../Components/Sections/ListBlock';
 
 function componentName() {
+  // there should be only one TextBlock in one code file
+  // inside a TextBlock there can be multiple things [Para, CodeBlock, Table, ExternalLink, Inline, ListBlock] in any order and in any number.
+  // you can use [code]inline code [/code].
+  // [link]inline link[/link].
+  // [bold] sub heading or emphasize [/bold].
   return (
 
     <div className='w-full'>
@@ -21,7 +26,8 @@ id='sub id',
 Children={<>
 <Para
 text='this is normal text. and [code]this is inline code[/code]. 
-and this is [link]Link(https://docs.docker.com)[/link]'
+and this is [link]Link(https://docs.docker.com)[/link].
+[bold]bold text[/bold]'
 />
 
 <CodeBlock
@@ -30,7 +36,7 @@ language='code language'
 />
 
 <Table
-header={['', '']},
+headers={['', '']},
 rows={[
 ['r11', 'r12'],
 ['r21', 'r22']

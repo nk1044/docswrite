@@ -56,6 +56,22 @@ export const ListBlock = ({ title, items, ordered = false }) => {
         result.push(<ExternalLink key={`link-${key++}`} title={linkTitle} link={linkUrl} />);
         i = linkEnd + 7;
       }
+      // Check for bold tag
+      else if (text.substring(i, i + 6) === '[bold]') {
+        if (currentText) {
+          result.push(currentText);
+          currentText = '';
+        }
+        const boldStart = i + 6;
+        const boldEnd = text.indexOf('[/bold]', boldStart);
+        if (boldEnd === -1) {
+          currentText += text.substring(i);
+          break;
+        }
+        const boldContent = text.substring(boldStart, boldEnd);
+        result.push(<strong key={`bold-${key++}`}>{boldContent}</strong>);
+        i = boldEnd + 7;
+      }
       else {
         currentText += text[i];
         i++;

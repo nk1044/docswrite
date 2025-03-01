@@ -52,6 +52,20 @@ export const Table = ({ headers, rows, title }) => {
                 const linkUrl = linkContent.substring(openParenIndex + 1, closeParenIndex).trim();
                 result.push(<ExternalLink key={`link-${key++}`} title={linkTitle} link={linkUrl} />);
                 i = linkEnd + 7;
+            } else if (text.substring(i, i + 6) === '[bold]') {
+                if (currentText) {
+                    result.push(currentText);
+                    currentText = '';
+                }
+                const boldStart = i + 6;
+                const boldEnd = text.indexOf('[/bold]', boldStart);
+                if (boldEnd === -1) {
+                    currentText += text.substring(i);
+                    break;
+                }
+                const boldContent = text.substring(boldStart, boldEnd);
+                result.push(<strong key={`bold-${key++}`}>{boldContent}</strong>);
+                i = boldEnd + 7;
             } else {
                 currentText += text[i];
                 i++;
