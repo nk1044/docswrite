@@ -10,6 +10,7 @@ import Kubernates from '../Documents/Kubernates.jsx';
 import RedisDocs from '../Documents/RedisDocs.jsx';
 import PostgreSQL from '../Documents/PostgreSQL.jsx';
 import DjangoSetup from '../Documents/DjangoSetup.jsx';
+import DSA from '../Documents/DSA.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -95,7 +96,8 @@ export default function Docs() {
       {name: 'SuperUser', id: 'django-superuser-admin'},
       {name: 'Models, Urls', id: 'django-models-urls'},
     ]
-    }
+    },
+    {name: 'DSA', Component: <DSA />, Children: []}
 
   ];
 
