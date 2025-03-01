@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 
 
 const metaData = [
@@ -73,6 +74,23 @@ const metaData = [
     {data: 'Django SuperUser Creation', Index: 6, ID: 'django-superuser-admin'},
     {data: 'Django Admin Panel', Index: 6, ID: 'django-superuser-admin'},
 
+    {data: 'DSA | Data structures and algorithms', Index: 7, ID: 'dsa-searching'},
+    {data: 'DSA Searching', Index: 7, ID: 'dsa-searching'},
+    {data: 'DSA Binary Search', Index: 7, ID: 'dsa-search-binary-search'},
+    {data: 'DSA Merge Sort | sorting', Index: 7, ID: 'dsa-sorting-mergesort'},
+    {data: 'DSA Insertion Sort | sorting', Index: 7, ID: 'dsa-sorting-insertion-sort'},
+    {data:'Linked List', Index: 7, ID: 'dsa-linked-list'},
+    {data:'Create Linked List from a vector', Index: 7, ID: 'dsa-linked-list-creation'},
+    {data:'Delete Node in Linked List', Index: 7, ID: 'dsa-linked-list-delete-node'},
+    {data:'Binary Tree', Index: 7, ID: 'dsa-binary-tree'},
+    {data:'Binary Tree Preorder Traversal Recursive', Index: 7, ID: 'dsa-binary-tree-preorder-recursive'},
+    {data:'Binary Tree Inorder Traversal Recursive', Index: 7, ID: 'dsa-binary-tree-inorder-recursive'},
+    {data:'Binary Tree Postorder Traversal Recursive', Index: 7, ID: 'dsa-binary-tree-postorder-recursive'},
+    {data:'Binary Tree Level Order Traversal', Index: 7, ID: 'dsa-binary-tree-level-order'},
+    {data:'Binary Tree Preorder Traversal Iterative', Index: 7, ID: 'dsa-binary-tree-preorder-iterative'},
+    {data:'Binary Tree Inorder Traversal Iterative', Index: 7, ID: 'dsa-binary-tree-inorder-iterative'},
+    {data:'Binary Tree Postorder Traversal Iterative', Index: 7, ID: 'dsa-binary-tree-postorder-iterative'},
+    {data:'Binary Tree Level Order Traversal', Index: 7, ID: 'dsa-binary-tree-level-order'},
     
 
 ]

@@ -2,9 +2,11 @@ import React from 'react';
 
 function Content({ component, nextComponent, Items = [], Index }) {
   return (
-    <div className="w-full h-full overflow-auto">
+    <div className="w-full h-full overflow-hidden">
       <div className="w-full h-full grid grid-cols-12 grid-rows-1 gap-1">
-        <div className="border border-neutral-700 rounded-lg p-3 md:col-span-10 col-span-12 overflow-scroll">
+        
+        {/* Main Content Section */}
+        <div className="border border-neutral-700 rounded-lg p-3 md:col-span-10 col-span-12 overflow-auto">
           {component}
 
           <footer className="mt-8 border-t border-gray-500 pt-4">
@@ -20,9 +22,7 @@ function Content({ component, nextComponent, Items = [], Index }) {
                 {Index > 0 && '← Previous'}
               </button>
 
-              <div
-                className="text-gray-400 hover:text-gray-300 text-sm"
-              >
+              <div className="text-gray-400 hover:text-gray-300 text-sm">
                 <h2 className="text-xl font-bold text-gray-300">{Items[Index]?.name}</h2>
               </div>
 
@@ -40,34 +40,34 @@ function Content({ component, nextComponent, Items = [], Index }) {
           </footer>
         </div>
 
-        <div className="md:col-span-2 hidden md:block">
-            <div className="border border-neutral-700 rounded-lg p-3 bg-neutral-900 shadow-md">
-                {Index === 0 ? (
-                    <p className="text-neutral-400 text-center py-4">
-                        Select a section to see details here.
-                    </p>
-                ) : (
-                  <ul className="w-full space-y-1"> 
-                  {Items[Index]?.Children?.map((item, i) => (
-                      <li key={i} className="w-full">
-                          <a
-                              className="block px-3 py-1.5 text-base font-medium text-neutral-300 cursor-pointer
-                                         transition-all duration-200 rounded-md hover:bg-neutral-800 hover:text-white 
-                                         active:bg-orange-500 active:text-white focus:bg-orange-500 focus:text-white"
-                              href={`#${item.id}`}
-                          >
-                              {item.name}
-                          </a>
-                      </li>
-                  ))}
+        {/* Sidebar Section */}
+        <div className="md:col-span-2 h-full hidden md:flex flex-col">
+          <div className="border border-neutral-700 rounded-lg overflow-auto p-3 bg-neutral-900 shadow-md h-full">
+            {Index === 0 ? (
+              <p className="text-neutral-400 text-center py-4">
+                Select a section to see details here.
+              </p>
+            ) : (
+              <ul className="w-full space-y-1">
+                {Items[Index]?.Children?.map((item, i) => (
+                  <li key={i} className="w-full">
+                    <a
+                      className="block px-3 py-1.5 text-base font-medium text-neutral-300 cursor-pointer
+                                 transition-all duration-200 rounded-md hover:bg-neutral-800 hover:text-white 
+                                 active:bg-orange-500 active:text-white focus:bg-orange-500 focus:text-white"
+                      href={`#${item.id}`}
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
-              
-                )}
-            </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Content
+export default Content;

@@ -97,7 +97,21 @@ export default function Docs() {
       {name: 'Models, Urls', id: 'django-models-urls'},
     ]
     },
-    {name: 'DSA', Component: <DSA />, Children: []}
+    {name: 'DSA', Component: <DSA />, Children: [
+      {name: 'Binary Search', id: 'dsa-search-binary-search'},
+      {name: 'Merge Sort', id: 'dsa-sorting-mergesort'},
+      {name: 'Insertion Sort', id: 'dsa-sorting-insertion-sort'},
+      {name: 'Create Linked List', id: 'dsa-linked-list-creation'},
+      {name: 'Delete Node in Linked List', id: 'das-linked-list-delete-node'},
+      {name: 'Binary Tree', id: 'dsa-binary-tree'},
+      {name: 'Preorder Traversal of BT (Recursive)', id: 'dsa-binary-tree-preorder-recursive'},
+      {name: 'Inorder Traversal of BT (Recursive)', id: 'dsa-binary-tree-inorder-recursive'},
+      {name: 'Postorder Traversal of BT (Recursive)', id: 'dsa-binary-tree-postorder-recursive'},
+      {name: 'Level Order Traversal of BT', id: 'dsa-binary-tree-level-order'},
+      {name: 'Preorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-preorder-iterative'},
+      {name: 'Inorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-inorder-iterative'},
+      {name: 'Postorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-postorder-iterative'},
+    ]}
 
   ];
 
@@ -153,7 +167,7 @@ export default function Docs() {
       </div>
       <div className="w-full h-[calc(100%-5rem)] px-2">
         <div className="w-full h-full grid grid-cols-12 grid-rows-1 p-3 gap-2">
-          <div className="border border-neutral-700 rounded-lg p-4 hidden sm:block sm:col-span-3 md:col-span-2">
+          <div className="border border-neutral-700 overflow-auto rounded-lg p-4 hidden sm:block sm:col-span-3 md:col-span-2">
             {/* Sidebar */}
             <ul className="w-full">
               {Items.map((item, index) => (
