@@ -440,6 +440,7 @@ volumes:
               ]}
               ordered={false}
             />
+            <img src="/grafanaDashBoard.png" loading='lazy' alt="grafana Dashboard" />
           </>}
         />
 

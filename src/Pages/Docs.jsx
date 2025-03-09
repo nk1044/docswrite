@@ -34,9 +34,9 @@ export default function Docs() {
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
 
     debounceTimer.current = setTimeout(async () => {
-      const results = await Search(value); // Ensure Search function exists
+      const results = await Search(value);
       setSearchResults(results);
-    }, 1000);
+    }, 700);
   };
 
   useEffect(() => {
@@ -163,7 +163,7 @@ export default function Docs() {
         className="bg-neutral-800 hidden sm:block text-white placeholder-gray-400 px-5 py-2 w-80 rounded-lg border border-neutral-600 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 transition-all shadow-md text-lg tracking-wide"
       />
       {searchResults.length > 0 && (
-        <div className="absolute top-full left-0 mt-2 w-80 bg-white shadow-lg rounded">
+        <div className="absolute top-full left-0 mt-2 w-auto bg-white shadow-lg rounded">
           <SearchResults 
           searchResults={searchResults}
           Items={Items}

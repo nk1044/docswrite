@@ -66,7 +66,7 @@ function SearchResults({
     return (
         <div 
             ref={searchResultsRef} 
-            className='z-30 w-96 max-h-80 overflow-auto absolute mt-1 bg-neutral-800 border border-neutral-600 rounded-lg shadow-lg transition-all duration-200'
+            className='z-30 w-auto max-h-80 overflow-auto absolute mt-1 bg-neutral-800 border border-neutral-600 rounded-lg shadow-lg transition-all duration-200'
         >
             {searchResults.length > 0 ? (
                 searchResults.map((result, index) => (
