@@ -113,7 +113,23 @@ export default function Docs() {
       {name: 'Inorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-inorder-iterative'},
       {name: 'Postorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-postorder-iterative'},
     ]},
-    {name: 'Server Monitoring', Component: <ServerMonitoring />, Children: []},
+    {name: 'Server Monitoring', Component: <ServerMonitoring />, Children: [
+      {name: 'Overview', id: 'server-monitoring-overview'},
+      {name: 'Why this stack?', id: 'server-monitoring-why-this-stack'},
+      {name: 'Prerequisites', id: 'server-monitoring-prerequisites'},
+      {name: 'Architecture Overview', id: 'server-monitoring-architecture-overview'},
+      {name: 'Prometheus', id: 'server-monitoring-prometheus-client'},
+      {name: 'Custom Metrics', id: 'server-monitoring-prometheus-custom-metrics'},
+      {name: 'Prometheus Server Setup', id: 'server-monitoring-setup-prometheus-server'},
+      {name: 'Grafana Setup', id: 'server-monitoring-setup-grafana'},
+      {name: 'Loki Setup', id: 'server-monitoring-setup-loki'},
+      {name: 'Setup Custom Dashboard', id: 'server-monitoring-unified-dashboards'},
+      {name: 'Alerting setup', id: 'server-monitoring-alerts'},
+      {name: 'Best Practices', id: 'server-monitoring-best-practices'},
+      {name: 'Troubleshooting', id: 'server-monitoring-troubleshooting'},
+      {name: 'Advanced Topics', id: 'server-monitoring-advanced-topics'},
+
+    ]},
 
   ];
 

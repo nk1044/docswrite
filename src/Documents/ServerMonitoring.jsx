@@ -14,7 +14,7 @@ function ServerMonitoring() {
       <div className='mt-2 space-y-6'>
         <TextBlock
           heading='Overview'
-          id='overview'
+          id='server-monitoring-overview'
           Children={<>
             <Para text='Monitoring is essential for any application to track performance, detect issues, and analyze usage patterns. In this comprehensive guide, we will explore three powerful open-source tools for creating a complete monitoring stack: [bold]Prometheus, Grafana, and Loki[/bold].' />
             <Table
@@ -31,7 +31,7 @@ function ServerMonitoring() {
 
         <TextBlock
           heading='Why This Stack?'
-          id='why-this-stack'
+          id='server-monitoring-why-this-stack'
           Children={<>
             <Para text='The Prometheus-Grafana-Loki stack has become an industry standard for monitoring for several reasons:' />
             <ListBlock
@@ -50,7 +50,7 @@ function ServerMonitoring() {
 
         <TextBlock
           heading='Prerequisites'
-          id='prerequisites'
+          id='server-monitoring-prerequisites'
           Children={<>
             <ListBlock
               title='Before proceeding, ensure you have:'
@@ -69,7 +69,7 @@ function ServerMonitoring() {
 
         <TextBlock
           heading='Architecture Overview'
-          id='architecture-overview'
+          id='server-monitoring-architecture-overview'
           Children={<>
             <Para text='The monitoring stack works together as follows:' />
             <ListBlock
@@ -88,7 +88,7 @@ function ServerMonitoring() {
 
         <TextBlock
           heading='Setting up Prometheus Client in Node.js Server'
-          id='setup-prometheus-client'
+          id='server-monitoring-prometheus-client'
           Children={<>
             <Para text='Prometheus collects metrics from applications via an HTTP endpoint. To enable this in a Node.js application, first install the Prometheus client package:' />
             <CodeBlock code='npm install prom-client --save' language='bash' />
@@ -155,7 +155,7 @@ process_resident_memory_bytes 33259520 1615472821399`}
 
         <TextBlock
           heading='Defining Custom Metrics in Prometheus'
-          id='custom-metrics'
+          id='server-monitoring-prometheus-custom-metrics'
           Children={<>
             <Para text='While default metrics are useful, custom metrics allow you to track application-specific information. Here is how to define and use custom metrics:' />
             <CodeBlock
@@ -283,7 +283,7 @@ active_connections`}
 
         <TextBlock
           heading='Setting up Prometheus Server'
-          id='setup-prometheus-server'
+          id='server-monitoring-setup-prometheus-server'
           Children={<>
             <Para text='Now that your application exposes metrics, you need to set up Prometheus to scrape and store them. Start by creating a configuration file named [code]prometheus-config.yml[/code]:' />
             <CodeBlock
@@ -362,7 +362,7 @@ services:
 
         <TextBlock
           heading='Setting up Grafana'
-          id='setup-grafana'
+          id='server-monitoring-setup-grafana'
           Children={<>
             <Para text='Grafana provides a powerful visualization layer for your metrics. Add it to your Docker Compose file:' />
             <CodeBlock
@@ -445,7 +445,7 @@ volumes:
 
         <TextBlock
           heading='Setting up Loki and Log Monitoring'
-          id='setup-loki'
+          id='server-monitoring-setup-loki'
           Children={<>
             <Para text='Loki complements Prometheus by providing log aggregation. Add it to your Docker Compose file:' />
             <CodeBlock
@@ -607,7 +607,7 @@ app.use((err, req, res, next) => {
 
         <TextBlock
           heading='Creating Unified Dashboards'
-          id='unified-dashboards'
+          id='server-monitoring-unified-dashboards'
           Children={<>
             <Para text='One of the key benefits of this monitoring stack is the ability to create dashboards that combine metrics and logs for a complete view of your application.' />
             <Para text='To create a unified dashboard in Grafana:' />
@@ -639,7 +639,7 @@ app.use((err, req, res, next) => {
 
         <TextBlock
           heading='Setting Up Alerts'
-          id='alerts'
+          id='server-monitoring-alerts'
           Children={<>
             <Para text='Monitoring is most valuable when it can proactively notify you of issues. Both Prometheus and Grafana offer alerting capabilities.' />
             <Para text='To set up Prometheus alerting:' />
@@ -698,7 +698,7 @@ rule_files:
 
         <TextBlock
           heading='Best Practices'
-          id='best-practices'
+          id='server-monitoring-best-practices'
           Children={<>
             <Para text='To get the most out of your monitoring stack:' />
             <ListBlock
@@ -719,7 +719,7 @@ rule_files:
 
         <TextBlock
           heading='Troubleshooting'
-          id='troubleshooting'
+          id='server-monitoring-troubleshooting'
           Children={<>
             <Para text='Common issues and solutions:' />
             <ListBlock
@@ -737,7 +737,7 @@ rule_files:
         />
         <TextBlock
           heading='Advanced Topics'
-          id='advanced-topics'
+          id='server-monitoring-advanced-topics'
           Children={<>
             <Para text='Once you have the basic stack running, consider these advanced topics:' />
             <ListBlock
