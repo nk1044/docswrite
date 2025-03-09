@@ -11,6 +11,7 @@ import RedisDocs from '../Documents/RedisDocs.jsx';
 import PostgreSQL from '../Documents/PostgreSQL.jsx';
 import DjangoSetup from '../Documents/DjangoSetup.jsx';
 import DSA from '../Documents/DSA.jsx';
+import ServerMonitoring from '../Documents/ServerMonitoring.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -111,7 +112,8 @@ export default function Docs() {
       {name: 'Preorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-preorder-iterative'},
       {name: 'Inorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-inorder-iterative'},
       {name: 'Postorder Traversal of BT (Iterative)', id: 'dsa-binary-tree-postorder-iterative'},
-    ]}
+    ]},
+    {name: 'Server Monitoring', Component: <ServerMonitoring />, Children: []},
 
   ];
 
