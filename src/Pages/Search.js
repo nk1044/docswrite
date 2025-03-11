@@ -130,6 +130,8 @@ const metaData = [
     {data: 'Server Monitoring troubleshooting | Grafana', Index: 8, ID: 'server-monitoring-troubleshooting'},
     {data: 'Server Monitoring troubleshooting | Loki', Index: 8, ID: 'server-monitoring-troubleshooting'},
     {data: 'Server Monitoring Advanced Topics | Prometheus | Loki | Grafana', Index: 8, ID: 'server-monitoring-advanced-topics'},
+    {data: 'Server Monitoring local grafana setup', Index: 8, ID: 'server-monitoring-prometheus-local'},
+    {data: 'Server Monitoring grafana local machine setup', Index: 8, ID: 'server-monitoring-prometheus-local'},
 
 ]
 

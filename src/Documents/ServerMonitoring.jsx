@@ -755,6 +755,60 @@ rule_files:
             />
           </>}
         />
+
+        <TextBlock
+          heading='Setting up Grafana-Prometheus-Loki Stack without Docker'
+          id='server-monitoring-prometheus-local'
+          Children={<>
+            <Para text='Follow these steps to install and configure Grafana, Prometheus, and Loki without using Docker.' />
+
+            <Para text='[bold]Step 1: Install Required Dependencies[/bold]' />
+            <CodeBlock code='sudo apt-get install -y apt-transport-https
+sudo apt-get install -y software-properties-common wget
+sudo wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key' language='bash' />
+
+            <Para text='[bold]Step 2: Setup the Stable Version of Grafana[/bold]' />
+            <CodeBlock code='echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list' language='bash' />
+
+            <Para text='[bold]Step 3: Update and Install Grafana[/bold]' />
+            <CodeBlock code='# Update the list of available packages
+sudo apt-get update
+
+# Install the latest OSS release:
+sudo apt-get install grafana' language='bash' />
+
+            <Para text='[bold]Step 4: Start Grafana Server[/bold]' />
+            <CodeBlock code='#To start Grafana Server
+sudo /bin/systemctl status grafana-server
+
+sudo /bin/systemctl enable grafana-server
+' language='bash' />
+
+            <Para text='[bold]Step 5: Install Loki and Promtail[/bold]' />
+            <Para text='Make a folder for loki-promtail files and download Loki and Promtail configuration files before running the containers.' />
+
+            <CodeBlock code='wget https://raw.githubusercontent.com/grafana/loki/v2.8.0/cmd/loki/loki-local-config.yaml -O loki-config.yaml' language='bash' />
+
+            <CodeBlock code='wget https://raw.githubusercontent.com/grafana/loki/v2.8.0/cmd/promtail/promtail-local-config.yaml -O promtail-config.yaml' language='bash' />
+
+            <Para text='[bold]Step 6: Run Loki and Promtail Containers[/bold]' />
+            <CodeBlock code='docker run -d --name loki -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:2.8.0 --config.file=/mnt/config/loki-config.yaml' language='bash' />
+
+            <CodeBlock code='docker run -d --name promtail -v $(pwd):/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.8.0 --config.file=/mnt/config/promtail-config.yaml' language='bash' />
+            <Para text='[bold]Summary[/bold]: This guide covers the installation of Grafana, Loki, and Promtail on a local system without Docker. It ensures proper logging and monitoring using Prometheus. Grafana serves as the visualization tool, Loki as the log aggregation system, and Promtail as the log collector. These components work together to provide efficient system monitoring.' />
+
+            <Table
+              headers={['Component', 'Port', 'Description']}
+              rows={[
+                ['Grafana', '3000', 'Dashboard for visualization'],
+                ['Loki', '3100', 'Log aggregation system'],
+                ['Promtail', 'N/A', 'Log collector, forwards logs to Loki']
+              ]}
+            />
+          </>}
+        />
+
+
       </div>
     </div>
   );
