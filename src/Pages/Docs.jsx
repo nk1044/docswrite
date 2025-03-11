@@ -181,7 +181,8 @@ export default function Docs() {
 
 
         {/* Settings Button */}
-        <button className="px-4 py-2 bg-neutral-700 cursor-pointer text-white rounded-lg hover:bg-neutral-600 transition">
+        <button className="px-4 py-2 bg-neutral-700 cursor-not-allowed text-white rounded-lg hover:bg-neutral-600 transition"
+        disabled = {true}>
           Settings
         </button>
       </div>
