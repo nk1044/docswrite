@@ -145,11 +145,15 @@ export default function Docs() {
     <div className="w-full h-screen bg-neutral-900 text-neutral-300">
       <div className="pt-2 px-2">
       <div className="border border-neutral-700 rounded-lg mx-3 bg-neutral-800">
-      <div className="flex items-center justify-between w-full py-2 px-6">
+      <div className="flex items-center cursor-pointer justify-between w-full py-2 px-6">
         {/* Title */}
-        <h1 className="text-2xl hidden sm:block font-bold cursor-pointer text-white"
-        onClick={() => navigate('/')}
-        >Documentation</h1>
+        <div className="flex items-center"
+        onClick={()=>navigate('/')}>
+          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"></path>
+          </svg>
+          <span className="ml-2 text-xl font-bold text-white">DocsWrite</span>
+        </div>
 
         {/* Search Bar */}
         <div className='flex items-center relative'>
@@ -160,7 +164,7 @@ export default function Docs() {
         value={query}
         onChange={handleSearch}
         placeholder="Search documentation..."
-        className="bg-neutral-800 hidden sm:block text-white placeholder-gray-400 px-5 py-2 w-80 rounded-lg border border-neutral-600 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 transition-all shadow-md text-lg tracking-wide"
+        className="flex-1 bg-neutral-900 border w-72 border-neutral-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-neutral-600"
       />
       {searchResults.length > 0 && (
         <div className="absolute top-full left-0 mt-2 w-auto bg-white shadow-lg rounded">
