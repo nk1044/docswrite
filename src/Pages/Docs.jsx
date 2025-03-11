@@ -1,4 +1,4 @@
-import React, { useState , useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Home from '../Components/Home';
 import Content from '../Components/Content';
@@ -19,6 +19,7 @@ export default function Docs() {
   const [ComponentIndex, setComponentIndex] = useState(0);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const debounceTimer = useRef(null);
 
@@ -42,6 +43,14 @@ export default function Docs() {
   useEffect(() => {
     return () => clearTimeout(debounceTimer.current); // Cleanup timeout on unmount
   }, []);
+
+  // Close mobile sidebar when a component is selected
+  const handleComponentSelect = (component, name, index) => {
+    setComponent(component);
+    setComponentName(name);
+    setComponentIndex(index);
+    setSidebarOpen(false); // Close sidebar on mobile after selection
+  };
 
   const Items = [
     {name: 'Home', Component: <Home />, Children: []},
@@ -130,7 +139,6 @@ export default function Docs() {
       {name: 'Advanced Topics', id: 'server-monitoring-advanced-topics'},
       {name: 'Setup on local', id: 'server-monitoring-prometheus-local'},
     ]},
-
   ];
 
   const handleNextComponent = (index) => {
@@ -141,57 +149,113 @@ export default function Docs() {
     }
   };
 
+  // Handler to close mobile overlays when clicking content area
+  const handleContentClick = () => {
+    if (sidebarOpen) setSidebarOpen(false);
+  };
+
   return (
     <div className="w-full h-screen bg-neutral-900 text-neutral-300">
       <div className="pt-2 px-2">
-      <div className="border border-neutral-700 rounded-lg mx-3 bg-neutral-800">
-      <div className="flex items-center cursor-pointer justify-between w-full py-2 px-6">
-        {/* Title */}
-        <div className="flex items-center"
-        onClick={()=>navigate('/')}>
-          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"></path>
-          </svg>
-          <span className="ml-2 text-xl font-bold text-white">DocsWrite</span>
+        <div className="border border-neutral-700 rounded-lg mx-3 bg-neutral-800">
+          <div className="flex items-center justify-between w-full py-2 px-3 sm:px-6">
+            {/* Logo and Title - Left aligned */}
+            <div className="flex items-center cursor-pointer"
+              onClick={() => navigate('/')}>
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"></path>
+              </svg>
+              <span className="ml-2 text-lg sm:text-xl font-bold text-white">DocsWrite</span>
+            </div>
+            
+            {/* Search Bar - Middle aligned, desktop only */}
+            <div className="hidden sm:flex justify-center flex-1 relative mx-4">
+              <div className="w-full max-w-md relative">
+                <input
+                  type="search"
+                  name="Searchbar"
+                  id="Searchbar"
+                  value={query}
+                  onChange={handleSearch}
+                  placeholder="Search documentation..."
+                  className="w-full bg-neutral-900 border border-neutral-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-neutral-600"
+                />
+                {searchResults.length > 0 && (
+                  <div className="absolute top-full left-0 mt-2 w-full bg-white shadow-lg rounded z-50">
+                    <SearchResults 
+                      searchResults={searchResults}
+                      Items={Items}
+                      setComponent={setComponent}
+                      setComponentName={setComponentName}
+                      setComponentIndex={setComponentIndex}
+                      setSearchResults={setSearchResults}
+                      setQuery={setQuery}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* Right-aligned controls */}
+            <div className="flex items-center">
+              {/* Settings Button - Desktop */}
+              <button className="px-4 py-2 hidden sm:block bg-neutral-700 cursor-not-allowed text-white rounded-lg hover:bg-neutral-600 transition mr-0"
+                disabled={true}>
+                Settings
+              </button>
+              
+              {/* Mobile Menu Button - Right aligned */}
+              <button 
+                className="sm:hidden text-white focus:outline-none"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-
-        {/* Search Bar */}
-        <div className='flex items-center relative'>
-      <input
-        type="search"
-        name="Searchbar"
-        id="Searchbar"
-        value={query}
-        onChange={handleSearch}
-        placeholder="Search documentation..."
-        className="flex-1 bg-neutral-900 border w-72 border-neutral-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-neutral-600"
-      />
-      {searchResults.length > 0 && (
-        <div className="absolute top-full left-0 mt-2 w-auto bg-white shadow-lg rounded">
-          <SearchResults 
-          searchResults={searchResults}
-          Items={Items}
-          setComponent={setComponent}
-          setComponentName={setComponentName}
-          setComponentIndex={setComponentIndex}
-          setSearchResults={setSearchResults}/>
-        </div>
-      )}
-    </div>
-
-
-        {/* Settings Button */}
-        <button className="px-4 py-2 bg-neutral-700 cursor-not-allowed text-white rounded-lg hover:bg-neutral-600 transition"
-        disabled = {true}>
-          Settings
-        </button>
       </div>
-    </div>
-      </div>
-      <div className="w-full h-[calc(100%-5rem)] px-2">
+
+      <div className="w-full h-[calc(100%-5rem)] px-2 relative">
+        {/* Mobile Sidebar - Overlay when open */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 sm:hidden"
+            onClick={() => setSidebarOpen(false)}
+          ></div>
+        )}
+
         <div className="w-full h-full grid grid-cols-12 grid-rows-1 p-3 gap-2">
-          <div className="border border-neutral-700 overflow-auto rounded-lg p-4 hidden sm:block sm:col-span-3 md:col-span-2">
-            {/* Sidebar */}
+          {/* Sidebar - Regular on desktop, slide-in on mobile from the right */}
+          <div 
+            className={`
+              fixed sm:static top-0 right-0 h-full z-40 sm:z-auto
+              ${sidebarOpen ? 'translate-x-0' : 'translate-x-full sm:translate-x-0'}
+              transition-transform duration-300 ease-in-out
+              bg-neutral-900 sm:bg-transparent border-l sm:border-l-0 sm:border 
+              overflow-auto p-4 w-3/4 max-w-xs sm:w-auto
+              sm:col-span-3 md:col-span-2 sm:block
+              border-neutral-700 sm:rounded-lg
+            `}
+          >
+            {/* Mobile sidebar header */}
+            <div className="flex items-center justify-between mb-4 sm:hidden">
+              <span className="text-xl font-bold text-white">Menu</span>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="text-white"
+                aria-label="Close menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+
+            {/* Sidebar content */}
             <ul className="w-full">
               {Items.map((item, index) => (
                 <li key={index} className="w-full">
@@ -199,11 +263,7 @@ export default function Docs() {
                     className={`px-3 mb-2 text-lg font-medium ${
                       ComponentName === item.name ? 'text-orange-500' : 'text-neutral-300'
                     } cursor-pointer transform hover:scale-105 transition-transform duration-200 w-full border-b border-gray-500`}
-                    onClick={() => {
-                      setComponent(item.Component);
-                      setComponentName(item.name);
-                      setComponentIndex(index);
-                    }}
+                    onClick={() => handleComponentSelect(item.Component, item.name, index)}
                   >
                     {item.name}
                   </div>
@@ -211,7 +271,12 @@ export default function Docs() {
               ))}
             </ul>
           </div>
-          <div className="col-span-12 sm:col-span-9 row-span-1 md:col-span-10">
+
+          {/* Main content area */}
+          <div 
+            className="col-span-12 sm:col-span-9 row-span-1 md:col-span-10"
+            onClick={handleContentClick}
+          >
             <Content
               component={Component}
               nextComponent={handleNextComponent}

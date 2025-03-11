@@ -127,7 +127,7 @@ function Home() {
                   LinkedIn
                 </a>
               </div>
-              <div className="bg-neutral-900 p-4 rounded-md border border-neutral-700 font-mono text-sm text-neutral-400">
+              <div className="bg-neutral-900 p-4 rounded-md border overflow-auto border-neutral-700 font-mono text-sm text-neutral-400">
                 <div className="mb-2">$ git clone https://github.com/nk1044/docswrite.git</div>
                 <div className="mb-2">$ cd docswrite</div>
                 <div>$ npm install && npm run dev</div>
@@ -164,9 +164,9 @@ function Home() {
           <div className="bg-neutral-800 p-6 rounded-lg border border-neutral-700 max-w-xl w-full">
             <h3 className="text-xl font-bold text-white mb-4">Stay Updated</h3>
             <p className="text-neutral-400 mb-4">Subscribe to our newsletter for the latest updates, new documentation, and community events.</p>
-            <div className="flex">
-              <input type="email" placeholder="Your email address" className="flex-1 bg-neutral-900 border border-neutral-700 rounded-l-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-neutral-600" />
-              <button className="bg-neutral-700 hover:bg-neutral-600 text-white px-4 py-2 rounded-r-md font-medium transition">Subscribe</button>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input type="email" placeholder="Your email address" className="flex-1 bg-neutral-900 border border-neutral-700 rounded-md sm:rounded-l-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-neutral-600" />
+              <button className="bg-neutral-700 hover:bg-neutral-600 text-white px-4 py-2 rounded-md cursor-pointer font-medium transition">Subscribe</button>
             </div>
           </div>
         </div>
