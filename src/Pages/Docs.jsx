@@ -12,6 +12,7 @@ import PostgreSQL from '../Documents/PostgreSQL.jsx';
 import DjangoSetup from '../Documents/DjangoSetup.jsx';
 import DSA from '../Documents/DSA.jsx';
 import ServerMonitoring from '../Documents/ServerMonitoring.jsx';
+import Jenkins from '../Documents/Jenkins.jsx';
 
 export default function Docs() {
   const [Component, setComponent] = useState(<Home />);
@@ -138,6 +139,9 @@ export default function Docs() {
       {name: 'Troubleshooting', id: 'server-monitoring-troubleshooting'},
       {name: 'Advanced Topics', id: 'server-monitoring-advanced-topics'},
       {name: 'Setup on local', id: 'server-monitoring-prometheus-local'},
+    ]},
+    {name: 'Jenkins', Component: <Jenkins />, Children: [
+      {name: 'Overview', id: 'jenkins-overview'},
     ]},
   ];
 
