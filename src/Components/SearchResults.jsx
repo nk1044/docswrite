@@ -26,7 +26,7 @@ function SearchResults({
         setComponentName(item.name);
         setComponentIndex(Index);
 
-        navigate(`/docs#${ID}`); // Update URL
+        navigate(`/#${ID}`); // Update URL
 
         // Hide search results after navigation
         setSearchResults([]);
