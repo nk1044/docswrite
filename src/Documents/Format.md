@@ -9,7 +9,7 @@ function componentName() {
   // there should be only one TextBlock in one code file
   // inside a TextBlock there can be multiple things [Para, CodeBlock, Table, ExternalLink, Inline, ListBlock] in any order and in any number.
   // you can use [code]inline code [/code].
-  // [link]inline link[/link].
+  // [link]docs(link here)[/link].
   // [bold] sub heading or emphasize [/bold].
   return (
 
