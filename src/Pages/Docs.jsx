@@ -141,7 +141,14 @@ export default function Docs() {
       {name: 'Setup on local', id: 'server-monitoring-prometheus-local'},
     ]},
     {name: 'Jenkins', Component: <Jenkins />, Children: [
-      {name: 'Overview', id: 'jenkins-overview'},
+      {name: 'Introduction', id: 'jenkins-introduction'},
+      {name: 'Installation', id: 'jenkins-installation'},
+      {name: 'Jenkins Jobs', id: 'jenkins-jobs'},
+      {name: 'Declarative Pipeline', id: 'jenkins-declarative-pipeline'},
+      {name: 'Add Agent Node', id: 'jenkins-add-agent-node'},
+      {name: 'Credentials Binding', id: 'jenkins-credentials-binding'},
+      {name: 'Github Webhooks', id: 'jenkins-github-webhooks'},
+      {name: 'Shared Libraries', id: 'jenkins-shared-libraries'},
     ]},
   ];
 
